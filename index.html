@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>MAS Crypto</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #080c17;
+      color: #f5f7ff;
+    }
+    .app { min-height: 100vh; }
+    .topbar {
+      height: 72px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(8,12,23,.88);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand { font-weight: 800; font-size: 20px; letter-spacing: -.5px; }
+    .brand span { opacity: .55; font-weight: 500; }
+    .status {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #aeb7ce;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #55e68b; box-shadow: 0 0 14px rgba(85,230,139,.8);
+    }
+    main { max-width: 1180px; margin: auto; padding: 56px 24px; }
+    .hero {
+      padding: 42px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(42,65,130,.30), rgba(13,18,35,.82));
+      box-shadow: 0 24px 80px rgba(0,0,0,.28);
+    }
+    .eyebrow { color: #8ea8ff; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1.6px; }
+    h1 { font-size: clamp(38px, 6vw, 68px); line-height: .98; margin: 14px 0 18px; letter-spacing: -3px; }
+    .hero p { max-width: 700px; color: #aeb7ce; font-size: 17px; line-height: 1.7; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
+    button {
+      border: 0; border-radius: 12px; padding: 12px 18px;
+      font-weight: 700; cursor: pointer;
+    }
+    .primary { background: #f5f7ff; color: #080c17; }
+    .secondary { background: rgba(255,255,255,.08); color: #fff; }
+    .grid {
+      display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:16px; margin-top:22px;
+    }
+    .card {
+      padding:22px; border:1px solid rgba(255,255,255,.08);
+      border-radius:20px; background:rgba(255,255,255,.035);
+    }
+    .card h3 { margin:0 0 8px; }
+    .card p { margin:0; color:#9ca7bf; line-height:1.55; }
+    #userBox { margin-top:20px; color:#9ca7bf; min-height:24px; }
+    footer { padding: 30px 24px 50px; text-align:center; color:#69738b; font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">MAS <span>Crypto</span></div>
+      <div class="status"><span class="dot"></span><span id="firebaseStatus">Conectando ao Firebase...</span></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">MAS Crypto Platform</div>
+        <h1>Seu ecossistema digital.</h1>
+        <p>
+          Base inicial preparada para integrar autenticação, usuários, carteira,
+          níveis, XP, mineração, loja, inventário, cassino e gerenciamento administrativo
+          usando Firebase.
+        </p>
+        <div class="actions">
+          <button class="primary" id="loginBtn">Entrar com Google</button>
+          <button class="secondary" id="logoutBtn" hidden>Sair</button>
+        </div>
+        <div id="userBox">Nenhum usuário autenticado.</div>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h3>⭐ Níveis & XP</h3>
+          <p>Estrutura preparada para sincronizar nível e XP entre perfil, quarto e painel administrativo.</p>
+        </article>
+        <article class="card">
+          <h3>💰 Carteira</h3>
+          <p>Base para MAS e R$, com atualização global dos saldos.</p>
+        </article>
+        <article class="card">
+          <h3>🛒 Loja & Inventário</h3>
+          <p>Suporte para roupas, acessórios, equipamentos, móveis e itens com requisitos individuais.</p>
+        </article>
+        <article class="card">
+          <h3>🎰 Cassino</h3>
+          <p>Estrutura preparada para controle de jogos e configurações administrativas.</p>
+        </article>
+        <article class="card">
+          <h3>⛏️ Mineração</h3>
+          <p>Base para mineração, H/S e mineração por clique com valores configuráveis.</p>
+        </article>
+        <article class="card">
+          <h3>🛡️ Admin</h3>
+          <p>Gerenciamento de contas, itens, XP, níveis, jogos e demais sistemas.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>MAS Crypto • Firebase conectado</footer>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getStorage } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEm7CnJ1muljuTjX2zkeLduQ7d5BG_Mbk",
+      authDomain: "mascrypto.firebaseapp.com",
+      projectId: "mascrypto",
+      storageBucket: "mascrypto.firebasestorage.app",
+      messagingSenderId: "310906627126",
+      appId: "1:310906627126:web:12636e4682772e4119e497",
+      measurementId: "G-2XYJP1MKH7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const firebaseStatus = document.getElementById("firebaseStatus");
+    const userBox = document.getElementById("userBox");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    firebaseStatus.textContent = "Firebase conectado";
+
+    loginBtn.addEventListener("click", async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.error(error);
+        alert("Não foi possível realizar o login.");
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        userBox.textContent = "Nenhum usuário autenticado.";
+        loginBtn.hidden = false;
+        logoutBtn.hidden = true;
+        return;
+      }
+
+      userBox.textContent = `Logado como ${user.displayName || user.email || "usuário"}`;
+      loginBtn.hidden = true;
+      logoutBtn.hidden = false;
+
+      // Disponibiliza as instâncias para os módulos do projeto, se necessário.
+      window.masFirebase = { app, auth, db, storage };
+    });
+  </script>
+</body>
+</html>
