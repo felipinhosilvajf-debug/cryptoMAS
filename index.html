@@ -1,191 +1,428 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>MAS Crypto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MAS Crypto — Plataforma</title>
+  <meta name="theme-color" content="#070b16">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #080c17;
-      color: #f5f7ff;
-    }
-    .app { min-height: 100vh; }
-    .topbar {
-      height: 72px;
-      padding: 0 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      background: rgba(8,12,23,.88);
-      backdrop-filter: blur(18px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .brand { font-weight: 800; font-size: 20px; letter-spacing: -.5px; }
-    .brand span { opacity: .55; font-weight: 500; }
-    .status {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: #aeb7ce;
-    }
-    .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #55e68b; box-shadow: 0 0 14px rgba(85,230,139,.8);
-    }
-    main { max-width: 1180px; margin: auto; padding: 56px 24px; }
-    .hero {
-      padding: 42px;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(42,65,130,.30), rgba(13,18,35,.82));
-      box-shadow: 0 24px 80px rgba(0,0,0,.28);
-    }
-    .eyebrow { color: #8ea8ff; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1.6px; }
-    h1 { font-size: clamp(38px, 6vw, 68px); line-height: .98; margin: 14px 0 18px; letter-spacing: -3px; }
-    .hero p { max-width: 700px; color: #aeb7ce; font-size: 17px; line-height: 1.7; }
-    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
-    button {
-      border: 0; border-radius: 12px; padding: 12px 18px;
-      font-weight: 700; cursor: pointer;
-    }
-    .primary { background: #f5f7ff; color: #080c17; }
-    .secondary { background: rgba(255,255,255,.08); color: #fff; }
-    .grid {
-      display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap:16px; margin-top:22px;
-    }
-    .card {
-      padding:22px; border:1px solid rgba(255,255,255,.08);
-      border-radius:20px; background:rgba(255,255,255,.035);
-    }
-    .card h3 { margin:0 0 8px; }
-    .card p { margin:0; color:#9ca7bf; line-height:1.55; }
-    #userBox { margin-top:20px; color:#9ca7bf; min-height:24px; }
-    footer { padding: 30px 24px 50px; text-align:center; color:#69738b; font-size:13px; }
+    :root{--bg:#070b16;--panel:#0d1322;--panel2:#111a2d;--line:#22304b;--text:#f5f7ff;--muted:#8f9bb4;--accent:#7c5cff;--good:#36d98b;--bad:#ff5c7a;--warn:#ffbf57}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 20% 0,#17143c 0,#070b16 42%);color:var(--text)}
+    button,input,select{font:inherit}button{cursor:pointer}
+    .hidden{display:none!important}.app{min-height:100vh}.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#070b16dd;backdrop-filter:blur(16px);position:sticky;top:0;z-index:20}
+    .logo{font-weight:900;font-size:20px}.logo small{font-weight:500;color:var(--muted)}.userbar{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#1b2540}.status{font-size:12px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 70px)}.side{border-right:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:7px}.nav{border:1px solid transparent;background:transparent;color:#c9d1e4;text-align:left;padding:11px 13px;border-radius:11px}.nav:hover,.nav.active{background:#151d31;border-color:#263657;color:#fff}
+    main{max-width:1280px;width:100%;margin:auto;padding:28px}.page{display:none}.page.active{display:block}.hero{padding:30px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,#171a3b,#0c1220 65%);margin-bottom:18px}.eyebrow{color:#9e8dff;text-transform:uppercase;letter-spacing:1.5px;font-size:11px;font-weight:800}.hero h1{font-size:clamp(30px,5vw,52px);margin:8px 0}.muted{color:var(--muted);line-height:1.6}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px}.card h3{margin:0 0 7px}.metric{font-size:26px;font-weight:900}.small{font-size:12px;color:var(--muted)}
+    .btn{border:0;border-radius:11px;padding:10px 14px;font-weight:800}.primary{background:#fff;color:#080b14}.accent{background:var(--accent);color:#fff}.ghost{background:#151d31;color:#eaf0ff;border:1px solid var(--line)}.danger{background:#351421;color:#ff9bb0;border:1px solid #65243a}
+    .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.form{display:grid;gap:10px}.input,.select{width:100%;padding:11px 12px;background:#090f1c;color:#fff;border:1px solid var(--line);border-radius:10px;outline:none}.input:focus{border-color:#6d5cff}
+    .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}.item-img{width:100%;height:145px;object-fit:contain;background:#080d18;border-radius:12px}.tag{display:inline-flex;padding:4px 7px;border-radius:999px;background:#171f34;color:#b9c5df;font-size:11px}.bar{height:8px;background:#1b2540;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7c5cff,#35d7ff);border-radius:99px}
+    .login{min-height:100vh;display:grid;place-items:center;padding:22px}.loginbox{max-width:560px;width:100%;padding:38px;border:1px solid var(--line);border-radius:26px;background:#0b1120e8;box-shadow:0 30px 100px #0008}.loginbox h1{font-size:48px;margin:8px 0}.error{color:#ff9aad;background:#301521;border:1px solid #64253a;padding:11px;border-radius:10px;font-size:13px;line-height:1.5}.success{color:#9df2c7;background:#10271e;border:1px solid #20563e;padding:11px;border-radius:10px;font-size:13px}
+    .admin-tabs{display:flex;gap:7px;overflow:auto;margin-bottom:15px}.admin-tabs button{white-space:nowrap}.admin-panel{display:none}.admin-panel.active{display:block}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:13px}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table th{color:#9da9c1}
+    .casino{min-height:280px;display:grid;place-items:center;text-align:center}.minegrid{display:grid;grid-template-columns:repeat(5,52px);gap:7px;justify-content:center;margin:18px 0}.minegrid button{width:52px;height:52px;border:1px solid var(--line);border-radius:10px;background:#121b2f;color:#fff}.minegrid button.reveal{background:#252f49}.minegrid button.win{background:#174d3a}.minegrid button.lose{background:#542038}
+    @media(max-width:800px){.layout{grid-template-columns:1fr}.side{position:fixed;bottom:0;left:0;right:0;height:64px;z-index:30;background:#090e1b;display:flex;flex-direction:row;overflow:auto;border-right:0;border-top:1px solid var(--line);padding:7px}.nav{white-space:nowrap}.side .adminOnly{display:none}main{padding:18px 18px 90px}.top{padding:0 14px}.top .status{display:none}}
   </style>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">MAS <span>Crypto</span></div>
-      <div class="status"><span class="dot"></span><span id="firebaseStatus">Conectando ao Firebase...</span></div>
-    </header>
+<div id="loginView" class="login">
+  <div class="loginbox">
+    <div class="eyebrow">MAS Crypto</div>
+    <h1>Seu ecossistema digital.</h1>
+    <p class="muted">Carteira, níveis, mineração, loja, inventário, quarto, cassino e administração em um único arquivo.</p>
+    <div id="loginError" class="error hidden"></div>
+    <button id="googleLogin" class="btn primary" style="width:100%;margin-top:15px">Entrar com Google</button>
+    <p class="small" style="margin-top:14px">Configure o provedor Google e o domínio autorizado no Firebase Authentication antes de entrar.</p>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <header class="top">
+    <div class="logo">MAS <small>Crypto</small></div>
+    <div class="userbar">
+      <div><b id="topName">Usuário</b><div id="topLevel" class="status">Nível 1</div></div>
+      <img id="topAvatar" class="avatar" alt="">
+      <button id="logout" class="btn ghost">Sair</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="side">
+      <button class="nav active" data-page="home">🏠 Home</button>
+      <button class="nav" data-page="wallet">💰 Carteira</button>
+      <button class="nav" data-page="room">🛋️ Quarto</button>
+      <button class="nav" data-page="shop">🛒 Loja</button>
+      <button class="nav" data-page="inventory">🎒 Inventário</button>
+      <button class="nav" data-page="mining">⛏️ Mineração</button>
+      <button class="nav" data-page="casino">🎰 Cassino</button>
+      <button class="nav adminOnly hidden" data-page="admin">🛡️ Admin</button>
+    </aside>
 
     <main>
-      <section class="hero">
-        <div class="eyebrow">MAS Crypto Platform</div>
-        <h1>Seu ecossistema digital.</h1>
-        <p>
-          Base inicial preparada para integrar autenticação, usuários, carteira,
-          níveis, XP, mineração, loja, inventário, cassino e gerenciamento administrativo
-          usando Firebase.
-        </p>
-        <div class="actions">
-          <button class="primary" id="loginBtn">Entrar com Google</button>
-          <button class="secondary" id="logoutBtn" hidden>Sair</button>
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="eyebrow">Painel</div><h1>Olá, <span id="homeName">usuário</span>.</h1>
+          <p class="muted">Tudo conectado ao seu perfil. Os valores abaixo são atualizados pelo evento global <b>balanceUpdate</b>.</p>
         </div>
-        <div id="userBox">Nenhum usuário autenticado.</div>
+        <div class="grid">
+          <div class="card"><div class="small">Saldo MAS</div><div id="homeMas" class="metric">0,00 MAS</div></div>
+          <div class="card"><div class="small">Saldo em Reais</div><div id="homeBrl" class="metric">R$ 0,00</div></div>
+          <div class="card"><div class="small">Nível</div><div id="homeLevel" class="metric">1</div><div id="homeXp" class="small">0 / 100 XP</div></div>
+          <div class="card"><div class="small">H/S</div><div id="homeHs" class="metric">0,00</div></div>
+        </div>
       </section>
 
-      <section class="grid">
-        <article class="card">
-          <h3>⭐ Níveis & XP</h3>
-          <p>Estrutura preparada para sincronizar nível e XP entre perfil, quarto e painel administrativo.</p>
-        </article>
-        <article class="card">
-          <h3>💰 Carteira</h3>
-          <p>Base para MAS e R$, com atualização global dos saldos.</p>
-        </article>
-        <article class="card">
-          <h3>🛒 Loja & Inventário</h3>
-          <p>Suporte para roupas, acessórios, equipamentos, móveis e itens com requisitos individuais.</p>
-        </article>
-        <article class="card">
-          <h3>🎰 Cassino</h3>
-          <p>Estrutura preparada para controle de jogos e configurações administrativas.</p>
-        </article>
-        <article class="card">
-          <h3>⛏️ Mineração</h3>
-          <p>Base para mineração, H/S e mineração por clique com valores configuráveis.</p>
-        </article>
-        <article class="card">
-          <h3>🛡️ Admin</h3>
-          <p>Gerenciamento de contas, itens, XP, níveis, jogos e demais sistemas.</p>
-        </article>
+      <section id="wallet" class="page">
+        <div class="hero"><div class="eyebrow">Carteira</div><h1>Seu dinheiro.</h1><p class="muted">A interface usa uma única fonte de saldo e dispara atualização global quando os valores mudam.</p></div>
+        <div class="grid">
+          <div class="card"><div class="small">MAS</div><div id="walletMas" class="metric">0,00 MAS</div></div>
+          <div class="card"><div class="small">R$</div><div id="walletBrl" class="metric">R$ 0,00</div></div>
+        </div>
+      </section>
+
+      <section id="room" class="page">
+        <div class="hero"><div class="eyebrow">Quarto Virtual</div><h1 id="roomTitle">Usuário // No Quarto</h1><p id="roomStatus" class="muted">Explorando o quarto virtual.</p></div>
+        <div class="card"><h3>Perfil</h3><p id="roomProfile" class="muted"></p><div class="bar"><i id="xpBar" style="width:0%"></i></div></div>
+      </section>
+
+      <section id="shop" class="page">
+        <div class="hero"><div class="eyebrow">Loja</div><h1>Itens para você.</h1><p class="muted">Roupas não geram H/S. Equipamentos podem possuir potência e requisitos individuais de nível.</p></div>
+        <div id="shopGrid" class="shop-grid"></div>
+      </section>
+
+      <section id="inventory" class="page">
+        <div class="hero"><div class="eyebrow">Inventário</div><h1>Seus itens.</h1><p class="muted">Equipe e desequipe itens que você possui e que atendam aos requisitos.</p></div>
+        <div id="inventoryGrid" class="shop-grid"></div>
+      </section>
+
+      <section id="mining" class="page">
+        <div class="hero"><div class="eyebrow">Mineração</div><h1>Minere MAS.</h1><p class="muted">A mineração por clique pode ser configurada pelo Admin. Em produção, valide a operação no servidor/Firebase.</p></div>
+        <div class="card" style="text-align:center">
+          <div class="small">Recompensa por clique</div><div id="clickReward" class="metric">0,10 MAS</div>
+          <button id="mineClick" class="btn accent" style="font-size:20px;padding:18px 32px;margin-top:15px">⛏️ MINERAR</button>
+          <div id="miningMsg" class="small" style="margin-top:12px"></div>
+        </div>
+      </section>
+
+      <section id="casino" class="page">
+        <div class="hero"><div class="eyebrow">Cassino</div><h1>Jogos</h1><p class="muted">Jogos podem ser ativados/desativados individualmente pelo Admin. Este protótipo usa saldo local da sessão; para dinheiro real, mova a lógica para backend seguro.</p></div>
+        <div id="casinoGrid" class="grid"></div>
+        <div id="casinoGame" class="card casino hidden"></div>
+      </section>
+
+      <section id="admin" class="page">
+        <div class="hero"><div class="eyebrow">Administração</div><h1>Controle geral.</h1><p class="muted">Acesso demonstrativo. Para produção, a autorização deve ser validada por Firebase Security Rules/Claims, nunca somente pelo frontend.</p></div>
+        <div class="admin-tabs">
+          <button class="btn ghost active" data-admin="overview">Visão geral</button>
+          <button class="btn ghost" data-admin="items">Itens da loja</button>
+          <button class="btn ghost" data-admin="games">Jogos</button>
+          <button class="btn ghost" data-admin="mining">Mineração</button>
+          <button class="btn ghost" data-admin="accounts">Contas</button>
+        </div>
+        <div id="admin-overview" class="admin-panel active">
+          <div class="grid">
+            <div class="card"><div class="small">Usuário atual</div><div id="adminUser" class="metric">—</div></div>
+            <div class="card"><div class="small">Projeto Firebase</div><div class="metric">mascrypto</div></div>
+          </div>
+        </div>
+        <div id="admin-items" class="admin-panel">
+          <div class="grid">
+            <form id="itemForm" class="card form">
+              <h3>Adicionar item</h3>
+              <input id="itemName" class="input" placeholder="Nome" required>
+              <input id="itemDesc" class="input" placeholder="Descrição">
+              <select id="itemCat" class="select"><option>Roupas</option><option>Acessórios</option><option>Placas de vídeo</option><option>Móveis</option><option>Periféricos</option></select>
+              <input id="itemPrice" class="input" type="number" min="0" step=".01" placeholder="Preço MAS">
+              <input id="itemLevel" class="input" type="number" min="1" value="1" placeholder="Nível mínimo">
+              <input id="itemHs" class="input" type="number" min="0" step=".01" value="0" placeholder="H/S">
+              <input id="itemImage" class="input" placeholder="URL da imagem PNG">
+              <button class="btn accent">Criar item</button>
+            </form>
+            <div class="card"><h3>Catálogo</h3><div id="adminItemsList"></div></div>
+          </div>
+        </div>
+        <div id="admin-games" class="admin-panel">
+          <div class="card"><h3>Controle de Jogos do Cassino</h3><div id="gameControls" class="form"></div></div>
+        </div>
+        <div id="admin-mining" class="admin-panel">
+          <form id="miningForm" class="card form">
+            <h3>Controle da mineração</h3>
+            <label><input id="miningEnabled" type="checkbox"> Mineração por clique ativa</label>
+            <input id="miningReward" class="input" type="number" min="0" step=".01" placeholder="MAS por clique">
+            <button class="btn accent">Salvar configuração</button>
+          </form>
+        </div>
+        <div id="admin-accounts" class="admin-panel">
+          <div class="card"><h3>Conta atual</h3><div id="accountData" class="muted"></div><p class="small">Para listar e editar qualquer conta com segurança, implemente operações privilegiadas via backend/Cloud Functions e Security Rules.</p></div>
+        </div>
       </section>
     </main>
-
-    <footer>MAS Crypto • Firebase conectado</footer>
   </div>
+</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithPopup,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-    import { getStorage } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBEm7CnJ1muljuTjX2zkeLduQ7d5BG_Mbk",
-      authDomain: "mascrypto.firebaseapp.com",
-      projectId: "mascrypto",
-      storageBucket: "mascrypto.firebasestorage.app",
-      messagingSenderId: "310906627126",
-      appId: "1:310906627126:web:12636e4682772e4119e497",
-      measurementId: "G-2XYJP1MKH7"
-    };
+  const firebaseConfig = {
+    apiKey:"AIzaSyBEm7CnJ1muljuTjX2zkeLduQ7d5BG_Mbk",
+    authDomain:"mascrypto.firebaseapp.com",
+    projectId:"mascrypto",
+    storageBucket:"mascrypto.firebasestorage.app",
+    messagingSenderId:"310906627126",
+    appId:"1:310906627126:web:12636e4682772e4119e497",
+    measurementId:"G-2XYJP1MKH7"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+  const firebaseApp=initializeApp(firebaseConfig);
+  const auth=getAuth(firebaseApp);
+  const db=getFirestore(firebaseApp);
+  const storage=getStorage(firebaseApp);
 
-    const firebaseStatus = document.getElementById("firebaseStatus");
-    const userBox = document.getElementById("userBox");
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
+  // =========================
+  // CONFIGURAÇÕES DA APLICAÇÃO
+  // =========================
+  const DEFAULT_GAMES={mines:true,crash:true,roulette:true};
+  const DEFAULT_MINING={enabled:true,reward:.10};
+  const DEMO_ITEMS=[
+    {id:"shirt-basic",name:"Camisa MAS",description:"Camisa virtual.",category:"Roupas",price:25,level:1,hs:0,image:""},
+    {id:"gpu-basic",name:"GPU Starter",description:"Equipamento de mineração.",category:"Placas de vídeo",price:150,level:2,hs:5,image:""},
+    {id:"glasses-neon",name:"Óculos Neon",description:"Acessório futurista.",category:"Acessórios",price:50,level:3,hs:0,image:""}
+  ];
 
-    firebaseStatus.textContent = "Firebase conectado";
+  let currentUser=null;
+  let userData={mas:0,brl:0,xp:0,level:1,inventory:[],equipped:[],hs:0};
+  let items=[];
+  let games=JSON.parse(localStorage.getItem("casinoGames")||"null")||DEFAULT_GAMES;
+  let mining=JSON.parse(localStorage.getItem("miningSettings")||"null")||DEFAULT_MINING;
+  let listenersReady=false;
 
-    loginBtn.addEventListener("click", async () => {
-      try {
-        const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
-      } catch (error) {
-        console.error(error);
-        alert("Não foi possível realizar o login.");
-      }
-    });
+  const $=id=>document.getElementById(id);
+  const fmtMas=n=>`${Number(n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})} MAS`;
+  const fmtBrl=n=>`R$ ${Number(n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+  const levelFromXp=x=>Math.max(1,Math.floor(Number(x||0)/100)+1);
+  const xpForLevel=l=>Math.max(0,(Number(l||1)-1)*100);
 
-    logoutBtn.addEventListener("click", async () => {
-      await signOut(auth);
-    });
+  function emitBalanceUpdate(){
+    localStorage.setItem("masBalance",String(userData.mas||0));
+    localStorage.setItem("brlBalance",String(userData.brl||0));
+    window.dispatchEvent(new Event("balanceUpdate"));
+  }
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        userBox.textContent = "Nenhum usuário autenticado.";
-        loginBtn.hidden = false;
-        logoutBtn.hidden = true;
-        return;
-      }
+  async function saveUser(){
+    if(!currentUser)return;
+    const ref=doc(db,"users",currentUser.uid);
+    await setDoc(ref,{...userData,updatedAt:Date.now(),email:currentUser.email||"",displayName:currentUser.displayName||""},{merge:true});
+  }
 
-      userBox.textContent = `Logado como ${user.displayName || user.email || "usuário"}`;
-      loginBtn.hidden = true;
-      logoutBtn.hidden = false;
+  async function changeBalance(deltaMas=0,deltaBrl=0){
+    userData.mas=Number(userData.mas||0)+Number(deltaMas||0);
+    userData.brl=Number(userData.brl||0)+Number(deltaBrl||0);
+    emitBalanceUpdate();
+    await saveUser();
+    renderAll();
+  }
 
-      // Disponibiliza as instâncias para os módulos do projeto, se necessário.
-      window.masFirebase = { app, auth, db, storage };
-    });
-  </script>
+  async function loadUser(){
+    const ref=doc(db,"users",currentUser.uid);
+    const snap=await getDoc(ref);
+    if(snap.exists()){
+      userData={...userData,...snap.data()};
+    }else{
+      userData={...userData,mas:0,brl:0,xp:0,level:1,inventory:[],equipped:[],hs:0};
+      await setDoc(ref,{...userData,email:currentUser.email||"",displayName:currentUser.displayName||"",createdAt:Date.now()});
+    }
+    userData.level=levelFromXp(userData.xp);
+    emitBalanceUpdate();
+  }
+
+  async function loadItems(){
+    try{
+      const snap=await getDocs(collection(db,"storeItems"));
+      items=snap.docs.map(d=>({id:d.id,...d.data()}));
+      if(!items.length)items=DEMO_ITEMS;
+    }catch(e){
+      console.warn("Firestore storeItems indisponível; usando itens de demonstração.",e);
+      items=DEMO_ITEMS;
+    }
+  }
+
+  async function buyItem(id){
+    const item=items.find(x=>x.id===id);
+    if(!item)return;
+    if(userData.level < Number(item.level||1))return alert(`Você precisa do nível ${item.level||1}.`);
+    if(userData.inventory.includes(id))return alert("Você já possui este item.");
+    if(Number(userData.mas||0)<Number(item.price||0))return alert("Saldo MAS insuficiente.");
+    userData.mas-=Number(item.price||0);
+    userData.inventory.push(id);
+    await saveUser();emitBalanceUpdate();renderAll();
+  }
+
+  async function equipItem(id){
+    if(!userData.inventory.includes(id))return;
+    const item=items.find(x=>x.id===id);if(!item)return;
+    if(userData.level < Number(item.level||1))return alert(`Nível ${item.level||1} necessário.`);
+    userData.equipped=[...new Set([...(userData.equipped||[]).filter(x=>x!==id),id])];
+    userData.hs=(userData.equipped||[]).reduce((sum,eid)=>sum+Number((items.find(x=>x.id===eid)||{}).hs||0),0);
+    await saveUser();renderAll();
+  }
+
+  async function unequipItem(id){
+    userData.equipped=(userData.equipped||[]).filter(x=>x!==id);
+    userData.hs=(userData.equipped||[]).reduce((sum,eid)=>sum+Number((items.find(x=>x.id===eid)||{}).hs||0),0);
+    await saveUser();renderAll();
+  }
+
+  function renderBalances(){
+    ["homeMas","walletMas"].forEach(id=>$(id).textContent=fmtMas(userData.mas));
+    ["homeBrl","walletBrl"].forEach(id=>$(id).textContent=fmtBrl(userData.brl));
+    $("homeLevel").textContent=userData.level;
+    $("homeXp").textContent=`${Number(userData.xp||0)%100} / 100 XP`;
+    $("homeHs").textContent=Number(userData.hs||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+    const pct=Math.min(100,(Number(userData.xp||0)%100));
+    $("xpBar").style.width=pct+"%";
+  }
+
+  function renderProfile(){
+    const name=currentUser?.displayName||currentUser?.email||"Usuário";
+    $("topName").textContent=name;
+    $("homeName").textContent=name.split(" ")[0];
+    $("topLevel").textContent=`Nível ${userData.level}`;
+    $("roomTitle").textContent=`${name} // No Quarto`;
+    $("roomStatus").textContent=`${name} // Patrulhando Rigs no Quarto`;
+    $("roomProfile").textContent=`Nível ${userData.level} • ${userData.xp||0} XP • ${fmtMas(userData.mas)} • H/S ${Number(userData.hs||0).toFixed(2)}`;
+    $("adminUser").textContent=name;
+    $("accountData").innerHTML=`<b>${name}</b><br>${currentUser?.email||""}<br>UID: ${currentUser?.uid||""}<br>Nível: ${userData.level}<br>XP: ${userData.xp||0}`;
+    if(currentUser?.photoURL)$("topAvatar").src=currentUser.photoURL;
+  }
+
+  function renderShop(){
+    $("shopGrid").innerHTML=items.map(item=>`
+      <article class="card">
+        ${item.image?`<img class="item-img" src="${escapeHtml(item.image)}" alt="">`:`<div class="item-img" style="display:grid;place-items:center;font-size:48px">🧩</div>`}
+        <div class="row between" style="margin-top:12px"><h3>${escapeHtml(item.name||"Item")}</h3><span class="tag">${escapeHtml(item.category||"Outros")}</span></div>
+        <p class="small">${escapeHtml(item.description||"")}</p>
+        <p><b>${fmtMas(item.price||0)}</b> • nível ${item.level||1}${Number(item.hs||0)>0?` • ${item.hs} H/S`:""}</p>
+        <button class="btn accent" data-buy="${item.id}">${userData.inventory.includes(item.id)?"Adquirido":"Comprar"}</button>
+      </article>`).join("");
+    $("shopGrid").querySelectorAll("[data-buy]").forEach(b=>b.onclick=()=>buyItem(b.dataset.buy));
+  }
+
+  function renderInventory(){
+    const inv=(userData.inventory||[]).map(id=>items.find(x=>x.id===id)).filter(Boolean);
+    $("inventoryGrid").innerHTML=inv.length?inv.map(item=>{
+      const equipped=(userData.equipped||[]).includes(item.id);
+      return `<article class="card">
+        <div class="row between"><h3>${escapeHtml(item.name)}</h3><span class="tag">${equipped?"Equipado":"Guardado"}</span></div>
+        <p class="small">${escapeHtml(item.description||"")}</p>
+        <p>${item.hs||0} H/S • nível ${item.level||1}</p>
+        <button class="btn ${equipped?"danger":"accent"}" data-equip="${item.id}">${equipped?"Desequipar":"Equipar"}</button>
+      </article>`;
+    }).join(""):`<div class="card"><p class="muted">Seu inventário está vazio.</p></div>`;
+    $("inventoryGrid").querySelectorAll("[data-equip]").forEach(b=>b.onclick=()=>((userData.equipped||[]).includes(b.dataset.equip)?unequipItem(b.dataset.equip):equipItem(b.dataset.equip)));
+  }
+
+  function renderMining(){
+    $("clickReward").textContent=fmtMas(mining.reward);
+    $("mineClick").disabled=!mining.enabled;
+    $("mineClick").style.opacity=mining.enabled?"1":".5";
+  }
+
+  function renderGames(){
+    const names={mines:"💎 Mines",crash:"🚀 Crash",roulette:"🎯 Roleta"};
+    $("casinoGrid").innerHTML=Object.entries(games).map(([key,on])=>on?`
+      <div class="card"><h3>${names[key]||key}</h3><p class="small">Jogo disponível.</p><button class="btn accent" data-game="${key}">Abrir</button></div>`:"").join("")||`<div class="card"><p class="muted">Nenhum jogo está ativo.</p></div>`;
+    $("casinoGrid").querySelectorAll("[data-game]").forEach(b=>b.onclick=()=>openGame(b.dataset.game));
+  }
+
+  function openGame(game){
+    $("casinoGame").classList.remove("hidden");
+    const title={mines:"💎 Mines",crash:"🚀 Crash",roulette:"🎯 Roleta"}[game]||game;
+    if(game==="mines"){
+      $("casinoGame").innerHTML=`<div><h2>${title}</h2><p class="small">Protótipo de interface. Escolha uma célula.</p><div class="minegrid">${Array.from({length:25},(_,i)=>`<button data-cell="${i}">?</button>`).join("")}</div><button class="btn ghost" id="closeGame">Fechar</button></div>`;
+      $("casinoGame").querySelectorAll("[data-cell]").forEach(b=>b.onclick=()=>{b.classList.add("reveal",Math.random()>.2?"win":"lose");b.textContent=Math.random()>.2?"💎":"💥"});
+    }else{
+      $("casinoGame").innerHTML=`<div><h2>${title}</h2><p class="muted">Interface pronta para integrar a lógica segura do jogo.</p><button class="btn ghost" id="closeGame">Fechar</button></div>`;
+    }
+    $("closeGame").onclick=()=>$("casinoGame").classList.add("hidden");
+  }
+
+  function renderAdmin(){
+    $("gameControls").innerHTML=Object.entries(games).map(([key,on])=>`<label class="row between card"><b>${key.toUpperCase()}</b><input type="checkbox" data-game-toggle="${key}" ${on?"checked":""}></label>`).join("");
+    $("gameControls").querySelectorAll("[data-game-toggle]").forEach(c=>c.onchange=()=>{games[c.dataset.gameToggle]=c.checked;localStorage.setItem("casinoGames",JSON.stringify(games));renderGames()});
+    $("miningEnabled").checked=!!mining.enabled;$("miningReward").value=mining.reward;
+    $("adminItemsList").innerHTML=items.map(item=>`<div class="row between" style="padding:9px 0;border-bottom:1px solid var(--line)"><span><b>${escapeHtml(item.name)}</b><br><small>${item.category} • ${fmtMas(item.price)}</small></span><span class="tag">Nível ${item.level||1}</span></div>`).join("");
+  }
+
+  function renderAll(){renderBalances();renderProfile();renderShop();renderInventory();renderMining();renderGames();renderAdmin()}
+
+  function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+  function navigate(page){
+    document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+    $(page)?.classList.add("active");
+    document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===page));
+  }
+
+  document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+  document.querySelectorAll("[data-admin]").forEach(b=>b.onclick=()=>{
+    document.querySelectorAll("[data-admin]").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".admin-panel").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");$("admin-"+b.dataset.admin).classList.add("active");
+  });
+
+  $("googleLogin").onclick=async()=>{
+    $("loginError").classList.add("hidden");
+    try{await signInWithPopup(auth,new GoogleAuthProvider())}
+    catch(e){
+      console.error(e);
+      $("loginError").classList.remove("hidden");
+      $("loginError").innerHTML=`<b>Erro do Firebase:</b> ${escapeHtml(e.code||"desconhecido")}<br>${escapeHtml(e.message||"Não foi possível entrar.")}<br><br>Verifique se o Google está ativado em Authentication → Sign-in method e se o domínio está em Authorized domains.`;
+    }
+  };
+
+  $("logout").onclick=()=>signOut(auth);
+
+  $("mineClick").onclick=async()=>{
+    if(!mining.enabled)return;
+    await changeBalance(Number(mining.reward||0),0);
+    $("miningMsg").textContent=`+${fmtMas(mining.reward)} adicionados.`;
+  };
+
+  $("miningForm").onsubmit=async e=>{
+    e.preventDefault();
+    mining={enabled:$("miningEnabled").checked,reward:Math.max(0,Number($("miningReward").value||0))};
+    localStorage.setItem("miningSettings",JSON.stringify(mining));
+    renderMining();alert("Configuração da mineração salva.");
+  };
+
+  $("itemForm").onsubmit=async e=>{
+    e.preventDefault();
+    const id="item-"+Date.now();
+    const item={id,name:$("itemName").value.trim(),description:$("itemDesc").value.trim(),category:$("itemCat").value,price:Number($("itemPrice").value||0),level:Number($("itemLevel").value||1),hs:Number($("itemHs").value||0),image:$("itemImage").value.trim()};
+    items.push(item);
+    try{await setDoc(doc(db,"storeItems",id),item)}catch(err){console.warn("Não foi possível gravar o item no Firestore:",err)}
+    e.target.reset();renderAll();alert("Item criado.");
+  };
+
+  window.addEventListener("balanceUpdate",renderBalances);
+
+  onAuthStateChanged(auth,async user=>{
+    currentUser=user;
+    if(!user){
+      $("loginView").classList.remove("hidden");$("app").classList.add("hidden");return;
+    }
+    $("loginView").classList.add("hidden");$("app").classList.remove("hidden");
+    try{await loadUser();await loadItems();renderAll()}catch(e){
+      console.error(e);alert("Usuário autenticado, mas houve erro ao carregar os dados. Veja o console.");
+    }
+    // DEMONSTRAÇÃO: substitua por custom claims/Rules em produção.
+    const adminEmails=["admin@example.com"];
+    const isAdmin=adminEmails.includes((user.email||"").toLowerCase());
+    document.querySelectorAll(".adminOnly").forEach(x=>x.classList.toggle("hidden",!isAdmin));
+    if(isAdmin) $("admin").classList.add("admin-page");
+  });
+</script>
 </body>
 </html>
