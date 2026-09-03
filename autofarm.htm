@@ -64,7 +64,8 @@ Configure seu Auto Farm
 
 <button value="Alterar"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:radius"
-width=70 height=22>
+width=70 height=22
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
@@ -74,13 +75,13 @@ width=70 height=22>
 
 <br>
 
-<!-- SLOTS -->
+<!-- SLOTS (4 colunas: Skill 1, 2, 3 e Poção) -->
 
-<table width=620 border=0 cellpadding=2 cellspacing=4>
+<table width=740 border=0 cellpadding=1 cellspacing=2>
 
 <tr>
 
-<td width=200 align=center>
+<td width=180 align=center>
 
 <font color="LEVEL">SKILL 1</font>
 
@@ -88,11 +89,12 @@ width=70 height=22>
 
 <button value="%skill1%"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:skill1"
-width=185 height=38>
+width=175 height=38
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
-<td width=200 align=center>
+<td width=180 align=center>
 
 <font color="LEVEL">SKILL 2</font>
 
@@ -100,11 +102,12 @@ width=185 height=38>
 
 <button value="%skill2%"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:skill2"
-width=185 height=38>
+width=175 height=38
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
-<td width=200 align=center>
+<td width=180 align=center>
 
 <font color="LEVEL">SKILL 3</font>
 
@@ -112,7 +115,21 @@ width=185 height=38>
 
 <button value="%skill3%"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:skill3"
-width=185 height=38>
+width=175 height=38
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
+
+</td>
+
+<td width=180 align=center>
+
+<font color="LEVEL">POCAO</font>
+
+<br>
+
+<button value="%potion%"
+action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:potion"
+width=175 height=38
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
@@ -123,7 +140,7 @@ width=185 height=38>
 <br>
 
 <font color="AAAAAA">
-Clique no slot para escolher uma skill ou deixar sem skill.
+Clique no slot para escolher uma skill, poção ou deixar sem efeito.
 </font>
 
 <br><br>
@@ -154,7 +171,8 @@ Clique no slot para escolher uma skill ou deixar sem skill.
 
 <button value="ATIVAR AUTO FARM"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:start"
-width=220 height=30>
+width=220 height=30
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
@@ -162,7 +180,8 @@ width=220 height=30>
 
 <button value="DESATIVAR"
 action="bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:stop"
-width=220 height=30>
+width=220 height=30
+back="L2UI_CH3.Btn_BF_Down" fore="L2UI_CH3.Btn_BF">
 
 </td>
 
