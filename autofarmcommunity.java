@@ -14,9 +14,6 @@ public class AutoFarmCommunity
 {
     public Player self;
 
-/**
- * Envia uma página HTML para o jogador.
- */
     private void showHtml(String html)
     {
         if (self == null)
@@ -25,9 +22,6 @@ public class AutoFarmCommunity
         ShowBoard.separateAndSend(html, self);
     }
 
-    /**
-     * Ativa o Auto Farm.
-     */
     public void start()
     {
         if (self == null)
@@ -45,9 +39,6 @@ public class AutoFarmCommunity
         back();
     }
 
-    /**
-     * Desativa o Auto Farm.
-     */
     public void stop()
     {
         if (self == null)
@@ -65,9 +56,6 @@ public class AutoFarmCommunity
         back();
     }
 
-    /**
-     * Alterna entre ativado e desativado.
-     */
     public void toggle()
     {
         if (self == null)
@@ -79,34 +67,37 @@ public class AutoFarmCommunity
             start();
     }
 
-    /**
-     * Abre seleção da Skill 1.
-     */
     public void skill1()
     {
-        showSkillList(1);
+        showSkillList(1, 0);
     }
 
-    /**
-     * Abre seleção da Skill 2.
-     */
     public void skill2()
     {
-        showSkillList(2);
+        showSkillList(2, 0);
     }
 
-    /**
-     * Abre seleção da Skill 3.
-     */
     public void skill3()
     {
-        showSkillList(3);
+        showSkillList(3, 0);
     }
 
-    /**
-     * Mostra as skills disponíveis do personagem.
-     */
-    private void showSkillList(int slot)
+    public void skill1page2()
+    {
+        showSkillList(1, 1);
+    }
+
+    public void skill2page2()
+    {
+        showSkillList(2, 1);
+    }
+
+    public void skill3page2()
+    {
+        showSkillList(3, 1);
+    }
+
+    private void showSkillList(int slot, int page)
     {
         if (self == null)
             return;
@@ -118,9 +109,23 @@ public class AutoFarmCommunity
         html.append("<body><br>");
 
         html.append("<center>");
-        html.append("<font name=\"hs12\" color=\"LEVEL\">SELECIONE A SKILL ");
+        html.append("<font name=\"hs12\" color=\"LEVEL\">");
+        html.append("SELECIONE A SKILL ");
         html.append(slot);
         html.append("</font>");
+        html.append("</center>");
+
+        html.append("<br>");
+
+        /*
+         * SEM SKILL
+         */
+        html.append("<center>");
+        html.append("<button value=\"SEM SKILL\" ");
+        html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:select ");
+        html.append(slot);
+        html.append(" 0\" ");
+        html.append("width=150 height=30>");
         html.append("</center>");
 
         html.append("<br><br>");
@@ -132,11 +137,33 @@ public class AutoFarmCommunity
             @Override
             public int compare(Skill a, Skill b)
             {
-                return a.getName().compareToIgnoreCase(b.getName());
+                if (a == null && b == null)
+                    return 0;
+
+                if (a == null)
+                    return 1;
+
+                if (b == null)
+                    return -1;
+
+                String nameA = a.getName();
+                String nameB = b.getName();
+
+                if (nameA == null)
+                    nameA = "";
+
+                if (nameB == null)
+                    nameB = "";
+
+                return nameA.compareToIgnoreCase(nameB);
             }
         });
 
-        int count = 0;
+        /*
+         * Montamos uma lista somente com skills válidas
+         * para não contar passivas/skills sem nome.
+         */
+        List<Skill> validSkills = new ArrayList<Skill>();
 
         for (Skill skill : skills)
         {
@@ -148,6 +175,19 @@ public class AutoFarmCommunity
 
             if (skill.getName() == null || skill.getName().isEmpty())
                 continue;
+
+            validSkills.add(skill);
+        }
+
+        final int pageSize = 50;
+        int start = page * pageSize;
+        int end = Math.min(start + pageSize, validSkills.size());
+
+        int count = 0;
+
+        for (int i = start; i < end; i++)
+        {
+            Skill skill = validSkills.get(i);
 
             html.append("<table width=600 border=0>");
             html.append("<tr>");
@@ -166,7 +206,8 @@ public class AutoFarmCommunity
             html.append("</td>");
 
             html.append("<td width=100 align=right>");
-            html.append("<button value=\"Usar\" action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:select ");
+            html.append("<button value=\"Usar\" ");
+            html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:select ");
             html.append(slot);
             html.append(" ");
             html.append(skill.getId());
@@ -179,24 +220,67 @@ public class AutoFarmCommunity
             html.append("<br>");
 
             count++;
-
-            if (count >= 50)
-                break;
         }
 
         if (count == 0)
         {
             html.append("<center>");
             html.append("<font color=\"FF0000\">");
-            html.append("Nenhuma skill ativa encontrada.");
+
+            if (page == 0)
+                html.append("Nenhuma skill ativa encontrada.");
+            else
+                html.append("Não existem mais skills nesta página.");
+
             html.append("</font>");
             html.append("</center>");
         }
 
         html.append("<br>");
 
+        /*
+         * PAGINAÇÃO
+         */
         html.append("<center>");
-        html.append("<button value=\"VOLTAR\" action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:back\" width=100 height=25>");
+
+        if (page > 0)
+        {
+            html.append("<button value=\"LISTA 1\" ");
+            html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:");
+
+            if (slot == 1)
+                html.append("skill1");
+            else if (slot == 2)
+                html.append("skill2");
+            else
+                html.append("skill3");
+
+            html.append("\" width=100 height=25>");
+        }
+
+        if (page == 0 && validSkills.size() > pageSize)
+        {
+            html.append("<button value=\"LISTA 2\" ");
+            html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:");
+
+            if (slot == 1)
+                html.append("skill1page2");
+            else if (slot == 2)
+                html.append("skill2page2");
+            else
+                html.append("skill3page2");
+
+            html.append("\" width=100 height=25>");
+        }
+
+        html.append("</center>");
+
+        html.append("<br>");
+
+        html.append("<center>");
+        html.append("<button value=\"VOLTAR\" ");
+        html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:back\" ");
+        html.append("width=100 height=25>");
         html.append("</center>");
 
         html.append("</body></html>");
@@ -204,9 +288,6 @@ public class AutoFarmCommunity
         showHtml(html.toString());
     }
 
-    /**
-     * Recebe a seleção da skill.
-     */
     public void select(String[] args)
     {
         if (self == null)
@@ -219,6 +300,32 @@ public class AutoFarmCommunity
         {
             int slot = Integer.parseInt(args[0]);
             int skillId = Integer.parseInt(args[1]);
+
+            if (slot < 1 || slot > 3)
+                return;
+
+            /*
+             * 0 = SEM SKILL
+             */
+            if (skillId == 0)
+            {
+                int skill1 = self.getAutoFarmSkill1();
+                int skill2 = self.getAutoFarmSkill2();
+                int skill3 = self.getAutoFarmSkill3();
+
+                if (slot == 1)
+                    skill1 = 0;
+                else if (slot == 2)
+                    skill2 = 0;
+                else
+                    skill3 = 0;
+
+                self.setAutoFarmSkills(skill1, skill2, skill3);
+
+                self.sendMessage("Skill " + slot + " removida.");
+                back();
+                return;
+            }
 
             Skill skill = self.getKnownSkill(skillId);
 
@@ -236,14 +343,13 @@ public class AutoFarmCommunity
                 skill1 = skillId;
             else if (slot == 2)
                 skill2 = skillId;
-            else if (slot == 3)
-                skill3 = skillId;
             else
-                return;
+                skill3 = skillId;
 
             self.setAutoFarmSkills(skill1, skill2, skill3);
 
-            self.sendMessage("Skill " + slot + " definida: " + skill.getName());
+            self.sendMessage(
+                "Skill " + slot + " definida: " + skill.getName());
 
             back();
         }
@@ -253,9 +359,6 @@ public class AutoFarmCommunity
         }
     }
 
-    /**
-     * Abre a tela de seleção do raio.
-     */
     public void radius()
     {
         if (self == null)
@@ -268,7 +371,9 @@ public class AutoFarmCommunity
         html.append("<body><br>");
 
         html.append("<center>");
-        html.append("<font name=\"hs12\" color=\"LEVEL\">SELECIONE O RAIO</font>");
+        html.append("<font name=\"hs12\" color=\"LEVEL\">");
+        html.append("SELECIONE O RAIO");
+        html.append("</font>");
         html.append("</center>");
 
         html.append("<br><br>");
@@ -297,7 +402,9 @@ public class AutoFarmCommunity
         }
 
         html.append("<center>");
-        html.append("<button value=\"VOLTAR\" action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:back\" width=100 height=25>");
+        html.append("<button value=\"VOLTAR\" ");
+        html.append("action=\"bypass _bbsscripts;l2f.gameserver.autofarm.AutoFarmCommunity:back\" ");
+        html.append("width=100 height=25>");
         html.append("</center>");
 
         html.append("</body></html>");
@@ -305,9 +412,6 @@ public class AutoFarmCommunity
         showHtml(html.toString());
     }
 
-    /**
-     * Define o raio do Auto Farm.
-     */
     public void setRadius(String[] args)
     {
         if (self == null)
@@ -332,7 +436,8 @@ public class AutoFarmCommunity
 
             self.setAutoFarmRadius(radius);
 
-            self.sendMessage("Raio do Auto Farm definido para " + radius + ".");
+            self.sendMessage(
+                "Raio do Auto Farm definido para " + radius + ".");
 
             back();
         }
@@ -342,9 +447,6 @@ public class AutoFarmCommunity
         }
     }
 
-    /**
-     * Volta para o menu principal do Auto Farm.
-     */
     public void back()
     {
         if (self == null)
@@ -377,18 +479,18 @@ public class AutoFarmCommunity
         ShowBoard.separateAndSend(html, self);
     }
 
-    /**
-     * Retorna o nome da skill pelo ID.
-     */
     private String getSkillName(int skillId)
     {
+        if (skillId <= 0)
+            return "Sem Skill";
+
         if (self == null)
-            return "Nenhuma";
+            return "Sem Skill";
 
         Skill skill = self.getKnownSkill(skillId);
 
         if (skill == null)
-            return "Nenhuma";
+            return "Sem Skill";
 
         return skill.getName();
     }
