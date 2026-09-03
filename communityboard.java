@@ -278,7 +278,7 @@ public class CommunityBoard implements ScriptFile, ICommunityBoardHandler
 
 			return;
 		}
-		
+	}	
 	private static final SimpleDateFormat dataDateFormat = new SimpleDateFormat("hh:mm dd.MM.yyyy");
 	/**
 	 * @return
