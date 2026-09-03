@@ -15,17 +15,11 @@ public class AutoFarmTask implements Runnable
 
 	private int _searchRadius = 1000;
 
-    private int _skill1 = 101; // Slot 1 - Stun Shot
-    private int _skill2 = 19;  // Slot 2 - Double Shot
-    private int _skill3 = 4;   // Slot 3 - Dash
+	private int _skill1 = 0;
+	private int _skill2 = 0;
+	private int _skill3 = 0;
 
 	private int _currentSkill = 1;
-
-	/*
-	 * Momento em que o Auto Farm poderá executar
-	 * uma nova ação.
-	 */
-	private long _actionEndTime = 0;
 
 	public AutoFarmTask(Player player)
 	{
@@ -47,8 +41,6 @@ public class AutoFarmTask implements Runnable
 			_task.cancel(false);
 			_task = null;
 		}
-
-		_actionEndTime = 0;
 	}
 
 	public void setSkills(int skill1, int skill2, int skill3)
@@ -58,30 +50,30 @@ public class AutoFarmTask implements Runnable
 		_skill3 = skill3;
 	}
 
-    public int getSkill1()
-    {
-        return _skill1;
-    }
+	public int getSkill1()
+	{
+		return _skill1;
+	}
 
-    public int getSkill2()
-    {
-        return _skill2;
-    }
+	public int getSkill2()
+	{
+		return _skill2;
+	}
 
-    public int getSkill3()
-    {
-        return _skill3;
-    }
+	public int getSkill3()
+	{
+		return _skill3;
+	}
 
-    public void setSearchRadius(int radius)
-    {
-        _searchRadius = radius;
-    }
+	public void setSearchRadius(int radius)
+	{
+		_searchRadius = radius;
+	}
 
-    public int getSearchRadius()
-    {
-        return _searchRadius;
-    }
+	public int getSearchRadius()
+	{
+		return _searchRadius;
+	}
 
 	@Override
 	public void run()
@@ -96,16 +88,16 @@ public class AutoFarmTask implements Runnable
 			return;
 
 		/*
-		 * O Auto Farm está esperando a ação anterior terminar.
-		 */
-		if (System.currentTimeMillis() < _actionEndTime)
-			return;
-
-		/*
-		 * Se o servidor ainda considera que o personagem
-		 * está lançando uma skill, esperamos.
+		 * Não tenta outra ação enquanto o personagem
+		 * estiver executando uma ação de combate.
+		 *
+		 * O próprio Core controla o tempo real através
+		 * do Attack Speed / Casting Speed.
 		 */
 		if (_player.isCastingNow())
+			return;
+
+		if (_player.isAttackingNow())
 			return;
 
 		MonsterInstance target = findNearestMonster();
@@ -120,28 +112,17 @@ public class AutoFarmTask implements Runnable
 			return;
 
 		/*
-		 * PRIMEIRO tenta uma skill.
+		 * Primeiro tenta uma skill.
 		 *
-		 * Se uma skill for iniciada, não existe ataque
-		 * físico neste ciclo.
+		 * Se nenhum dos 3 slots tiver uma skill válida,
+		 * simplesmente faz ataque normal.
 		 */
 		if (useAutoSkill(target))
 			return;
 
-		/*
-		 * Só chegamos aqui quando nenhuma skill
-		 * pôde ser utilizada.
-		 */
 		if (!target.isDead())
 		{
 			_player.doAttack(target);
-
-			/*
-			 * O ataque físico passa a ser a ação atual.
-			 * Esperamos o estado atual de ataque terminar
-			 * antes de tentar outra skill.
-			 */
-			_actionEndTime = System.currentTimeMillis() + getAttackWaitTime();
 		}
 	}
 
@@ -162,6 +143,9 @@ public class AutoFarmTask implements Runnable
 			int index = (_currentSkill - 1 + i) % skills.length;
 			int skillId = skills[index];
 
+			/*
+			 * 0 significa "sem skill".
+			 */
 			if (skillId <= 0)
 				continue;
 
@@ -178,24 +162,12 @@ public class AutoFarmTask implements Runnable
 			 */
 			if (skillId == 4)
 			{
-				/*
-				 * Cancela o ataque físico antes da skill.
-				 */
 				if (_player.isAttackingNow())
 					_player.abortAttack(false, false);
 
-				_player.altUseSkill(skill, _player);
+				_player.doCast(skill, _player, true);
 
-				/*
-				 * Aguarda o tempo real de execução da skill.
-				 */
-				_actionEndTime = System.currentTimeMillis() + skill.getHitTime();
-
-				_currentSkill = index + 2;
-
-				if (_currentSkill > 3)
-					_currentSkill = 1;
-
+				nextSkill(index);
 				return true;
 			}
 
@@ -212,52 +184,36 @@ public class AutoFarmTask implements Runnable
 				continue;
 
 			/*
-			 * MUITO IMPORTANTE:
-			 *
-			 * Antes de lançar a skill, interrompemos
-			 * o ataque físico automático.
+			 * Interrompe o ataque físico antes de lançar
+			 * a skill.
 			 */
 			if (_player.isAttackingNow())
 				_player.abortAttack(false, false);
 
 			/*
-			 * Lança a skill pelo sistema original.
+			 * Usa o sistema NORMAL de cast do Core.
 			 *
-			 * O próprio Mythras agenda o efeito para
-			 * skill.getHitTime().
+			 * O doCast() calcula o tempo usando:
+			 * - Casting Speed
+			 * - tempo da própria skill
+			 * - tempo mínimo configurado
+			 * - reuse da skill
 			 */
-			_player.altUseSkill(skill, target);
+			_player.doCast(skill, target, true);
 
-			/*
-			 * Bloqueia qualquer nova ação até o momento
-			 * em que o efeito da skill deverá acontecer.
-			 */
-			_actionEndTime = System.currentTimeMillis() + skill.getHitTime();
-
-			_currentSkill = index + 2;
-
-			if (_currentSkill > 3)
-				_currentSkill = 1;
-
+			nextSkill(index);
 			return true;
 		}
 
 		return false;
 	}
 
-	/**
-	 * Pequena janela baseada no ataque normal.
-	 *
-	 * O objetivo aqui é impedir que o Auto Farm
-	 * imediatamente tente uma skill enquanto o
-	 * ataque físico ainda está sendo processado.
-	 */
-	private long getAttackWaitTime()
+	private void nextSkill(int index)
 	{
-		if (_player.isAttackingNow())
-			return 1000;
+		_currentSkill = index + 2;
 
-		return 500;
+		if (_currentSkill > 3)
+			_currentSkill = 1;
 	}
 
 	private MonsterInstance findNearestMonster()
