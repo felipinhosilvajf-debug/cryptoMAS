@@ -209,28 +209,76 @@ public class CommunityBoard implements ScriptFile, ICommunityBoardHandler
         }
 		else if (bypass.startsWith("_bbsscripts"))
 		{
-			StringTokenizer st2 = new StringTokenizer(bypass, ";");
-			String sBypass = st2.nextToken().substring(12);
-			String pBypass = st2.hasMoreTokens() ? st2.nextToken() : null;
-			if (pBypass != null)
-			{
-				ICommunityBoardHandler handler = CommunityBoardManager.getInstance().getCommunityHandler(pBypass);
-				if (handler != null)
-					handler.onBypassCommand(player, pBypass);
-			}
+			int separator = bypass.indexOf(';');
+
+			if (separator == -1 || separator + 1 >= bypass.length())
+				return;
+
+			String sBypass = bypass.substring(separator + 1).trim();
+
+			if (sBypass.isEmpty())
+				return;
 
 			String[] word = sBypass.split("\\s+");
-			String[] args = sBypass.substring(word[0].length()).trim().split("\\s+");
-			String[] path = word[0].split(":");
+
+			if (word.length == 0)
+				return;
+
+			String[] path = word[0].split(":", 2);
+
 			if (path.length != 2)
 				return;
 
-			Scripts.getInstance().callScripts(player, path[0], path[1], word.length == 1 ? new Object[] {} : new Object[] { args });
+			String[] args = new String[0];
+
+			if (word.length > 1)
+				args = sBypass.substring(word[0].length()).trim().split("\\s+");
+
+			if (path[0].equals("l2f.gameserver.autofarm.AutoFarmCommunity"))
+			{
+				try
+				{
+					l2f.gameserver.autofarm.AutoFarmCommunity autoFarm =
+						new l2f.gameserver.autofarm.AutoFarmCommunity();
+
+					autoFarm.self = player;
+
+					if (args.length == 0)
+					{
+						java.lang.reflect.Method method =
+							l2f.gameserver.autofarm.AutoFarmCommunity.class.getMethod(path[1]);
+
+						method.invoke(autoFarm);
+					}
+					else
+					{
+						java.lang.reflect.Method method =
+							l2f.gameserver.autofarm.AutoFarmCommunity.class.getMethod(
+								path[1],
+								String[].class
+							);
+
+						method.invoke(autoFarm, new Object[] { args });
+					}
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+
+				return;
+			}
+
+			Scripts.getInstance().callScripts(
+				player,
+				path[0],
+				path[1],
+				args.length == 0 ? new Object[] {} : new Object[] { args }
+			);
+
 			return;
 		}
-
-		ShowBoard.separateAndSend(html, player);
-	}
+		
 	private static final SimpleDateFormat dataDateFormat = new SimpleDateFormat("hh:mm dd.MM.yyyy");
 	/**
 	 * @return
