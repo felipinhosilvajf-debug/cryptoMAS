@@ -882,22 +882,33 @@ public class NpcInstance extends Creature
 		{
 			return null;
 		}
+
 		if (Config.SERVICES_OFFSHORE_NO_CASTLE_TAX && (getReflection() == ReflectionManager.GIRAN_HARBOR))
 		{
 			return null;
 		}
+
 		if (Config.SERVICES_OFFSHORE_NO_CASTLE_TAX && (getReflection() == ReflectionManager.PARNASSUS))
 		{
 			return null;
 		}
+
 		if (Config.SERVICES_OFFSHORE_NO_CASTLE_TAX && isInZone(ZoneType.offshore))
 		{
 			return null;
 		}
+
 		if (_nearestCastle == null)
 		{
-			_nearestCastle = ResidenceHolder.getInstance().getResidence(getTemplate().getCastleId());
+			int castleId = getTemplate().getCastleId();
+
+			if (castleId > 0)
+			{
+				_nearestCastle =
+					ResidenceHolder.getInstance().getResidence(castleId);
+			}
 		}
+
 		return _nearestCastle;
 	}
 
