@@ -1,0 +1,3601 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="ico2.png" />
+
+<title>L2 Virtual Boost — High Five</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   L2 VIRTUAL BOOST
+   DARK FANTASY — LINEAGE II H5
+========================================================= */
+
+:root{
+
+  --black:#05070b;
+  --black2:#080b12;
+  --panel:#0b1019;
+  --panel2:#0e1520;
+
+  --blue:#4ca8ff;
+  --blue2:#1769aa;
+  --cyan:#75d7ff;
+
+  --purple:#8c65ff;
+  --purple2:#5634b8;
+
+  --gold:#d5b46a;
+  --gold2:#8e7134;
+  --gold-light:#f0d99a;
+
+  --text:#e7edf5;
+  --muted:#8995a5;
+  --muted2:#5f6b7b;
+
+  --green:#63d39a;
+  --red:#d96a6a;
+
+  --line:rgba(130,170,220,.16);
+  --glow:rgba(55,150,255,.25);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:
+    radial-gradient(
+      ellipse at 50% -10%,
+      rgba(50,100,180,.18),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      #05070b 0%,
+      #080c13 45%,
+      #05070b 100%
+    );
+
+  color:var(--text);
+
+  font-family:'Rajdhani',sans-serif;
+
+  overflow-x:hidden;
+}
+
+body::before{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:999;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,.015) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    100% 4px;
+
+  opacity:.12;
+}
+
+h1,
+h2,
+h3,
+.logo{
+
+  font-family:'Cinzel',serif;
+
+  letter-spacing:1px;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.bg-fx{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-5;
+
+  overflow:hidden;
+
+  background:
+
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(75,140,255,.13),
+      transparent 35%
+    ),
+
+    radial-gradient(
+      circle at 15% 75%,
+      rgba(95,55,180,.09),
+      transparent 35%
+    ),
+
+    radial-gradient(
+      circle at 85% 60%,
+      rgba(35,100,170,.08),
+      transparent 40%
+    ),
+
+    linear-gradient(
+      180deg,
+      #04060a,
+      #090d14
+    );
+}
+
+.bg-fx::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 30%,
+      rgba(0,0,0,.75) 100%
+    );
+}
+
+/* =========================================================
+   MAGIC PARTICLES
+========================================================= */
+
+.magic-particles{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-1;
+
+  pointer-events:none;
+
+  overflow:hidden;
+}
+
+.particle{
+
+  position:absolute;
+
+  bottom:-10px;
+
+  width:2px;
+
+  height:2px;
+
+  border-radius:50%;
+
+  background:#8ed8ff;
+
+  box-shadow:
+    0 0 8px #4ca8ff,
+    0 0 16px rgba(76,168,255,.5);
+
+  animation:
+    rise linear infinite;
+}
+
+@keyframes rise{
+
+  0%{
+
+    transform:
+      translateY(0)
+      translateX(0);
+
+    opacity:0;
+  }
+
+  15%{
+    opacity:.8;
+  }
+
+  100%{
+
+    transform:
+      translateY(-100vh)
+      translateX(50px);
+
+    opacity:0;
+  }
+}
+
+/* =========================================================
+   ARCANE GRID
+========================================================= */
+
+.grid-fx{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-2;
+
+  pointer-events:none;
+
+  opacity:.35;
+
+  background:
+
+    linear-gradient(
+      rgba(80,130,190,.025) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(80,130,190,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    90px 90px;
+
+  mask-image:
+    radial-gradient(
+      ellipse at center,
+      black 0%,
+      transparent 80%
+    );
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:100;
+
+  height:76px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:
+    0 6vw;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3,5,9,.98),
+      rgba(5,8,13,.88)
+    );
+
+  backdrop-filter:blur(15px);
+
+  border-bottom:
+    1px solid rgba(110,160,220,.22);
+
+  box-shadow:
+    0 8px 40px rgba(0,0,0,.6);
+}
+
+nav::after{
+
+  content:"";
+
+  position:absolute;
+
+  bottom:-1px;
+  left:10%;
+  right:10%;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--blue),
+      var(--purple),
+      var(--blue),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(76,168,255,.5);
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+
+  font-size:1.25rem;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  color:#e9eef6;
+
+  text-shadow:
+    0 0 10px rgba(76,168,255,.35);
+
+  white-space:nowrap;
+}
+
+.logo span{
+
+  color:var(--blue);
+
+  text-shadow:
+    0 0 12px rgba(76,168,255,.8);
+}
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.navlinks{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:28px;
+}
+
+.navlinks a{
+
+  position:relative;
+
+  color:#aeb9c8;
+
+  text-decoration:none;
+
+  text-transform:uppercase;
+
+  font-size:.78rem;
+
+  font-weight:600;
+
+  letter-spacing:1.5px;
+
+  transition:.3s;
+}
+
+.navlinks a:hover{
+
+  color:#fff;
+
+  text-shadow:
+    0 0 12px rgba(76,168,255,.8);
+}
+
+.navlinks a::before{
+
+  content:"";
+
+  position:absolute;
+
+  bottom:-9px;
+
+  left:50%;
+
+  width:0;
+
+  height:1px;
+
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--purple)
+    );
+
+  transition:.3s;
+
+  box-shadow:
+    0 0 8px var(--blue);
+}
+
+.navlinks a:hover::before{
+  width:100%;
+}
+
+/* =========================================================
+   BURGER
+========================================================= */
+
+.burger{
+
+  display:none;
+
+  flex-direction:column;
+
+  gap:5px;
+
+  cursor:pointer;
+}
+
+.burger span{
+
+  width:27px;
+
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--purple)
+    );
+
+  box-shadow:
+    0 0 8px rgba(76,168,255,.6);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+header{
+
+  min-height:100vh;
+
+  position:relative;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    130px 6vw 90px;
+
+  overflow:hidden;
+}
+
+/* Decorative circles */
+
+header::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  border:
+    1px solid rgba(76,168,255,.08);
+
+  border-radius:50%;
+
+  box-shadow:
+    0 0 80px rgba(76,168,255,.04);
+
+  animation:
+    rotateRune 40s linear infinite;
+}
+
+header::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  border:
+    1px solid rgba(140,101,255,.08);
+
+  transform:
+    rotate(45deg);
+
+  box-shadow:
+    inset 0 0 80px rgba(80,80,255,.03);
+
+  animation:
+    rotateRuneReverse 35s linear infinite;
+}
+
+@keyframes rotateRune{
+
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes rotateRuneReverse{
+
+  to{
+    transform:rotate(-315deg);
+  }
+}
+
+/* =========================================================
+   HERO BADGE
+========================================================= */
+
+.badge{
+
+  position:relative;
+
+  z-index:2;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:
+    10px 25px;
+
+  border:
+    1px solid rgba(110,160,220,.35);
+
+  background:
+    rgba(8,13,21,.75);
+
+  color:#9fc7ee;
+
+  font-size:.7rem;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  box-shadow:
+    0 0 25px rgba(40,110,180,.12);
+
+  margin-bottom:30px;
+
+  backdrop-filter:blur(8px);
+}
+
+.badge::before,
+.badge::after{
+
+  content:"◆";
+
+  color:var(--gold);
+
+  font-size:.55rem;
+}
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-title{
+
+  position:relative;
+
+  z-index:2;
+
+  font-size:
+    clamp(3rem,8vw,7rem);
+
+  line-height:.95;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+  margin-bottom:30px;
+}
+
+.hero-title .l2{
+
+  display:block;
+
+  color:#edf4fc;
+
+  text-shadow:
+    0 0 20px rgba(120,170,230,.3),
+    0 5px 30px rgba(0,0,0,.8);
+}
+
+.hero-title .virtual{
+
+  display:block;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dfeeff 0%,
+      #75c7ff 35%,
+      #397fca 70%,
+      #173b68 100%
+    );
+
+  -webkit-background-clip:text;
+
+  background-clip:text;
+
+  color:transparent;
+
+  filter:
+    drop-shadow(
+      0 0 20px rgba(76,168,255,.4)
+    );
+}
+
+.hero-title .boost{
+
+  display:block;
+
+  font-size:.48em;
+
+  letter-spacing:9px;
+
+  margin-top:15px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold2),
+      var(--gold-light),
+      var(--gold),
+      var(--gold2)
+    );
+
+  -webkit-background-clip:text;
+
+  background-clip:text;
+
+  color:transparent;
+
+  text-shadow:none;
+}
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-sub{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:730px;
+
+  color:#a9b5c5;
+
+  font-size:
+    clamp(1rem,2vw,1.2rem);
+
+  line-height:1.8;
+
+  margin-bottom:38px;
+}
+
+.hero-sub b{
+
+  color:#e2e9f2;
+
+  font-family:'Cinzel',serif;
+
+  font-weight:600;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.hero-cta{
+
+  position:relative;
+
+  z-index:5;
+
+  display:flex;
+
+  gap:16px;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+}
+
+.btn{
+
+  position:relative;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:56px;
+
+  padding:
+    0 34px;
+
+  border:
+
+    1px solid rgba(120,170,230,.45);
+
+  color:#dceafa;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,55,82,.55),
+      rgba(8,15,24,.95)
+    );
+
+  text-decoration:none;
+
+  text-transform:uppercase;
+
+  font-family:'Cinzel',serif;
+
+  font-size:.75rem;
+
+  font-weight:700;
+
+  letter-spacing:1.5px;
+
+  transition:.35s;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.4);
+}
+
+.btn::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.08),
+      transparent
+    );
+
+  transform:translateX(-100%);
+
+  transition:.5s;
+}
+
+.btn:hover::before{
+  transform:translateX(100%);
+}
+
+.btn:hover{
+
+  color:#fff;
+
+  border-color:var(--blue);
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 12px 35px rgba(30,110,190,.3),
+    0 0 25px rgba(76,168,255,.15);
+}
+
+.btn-primary{
+
+  border-color:
+    rgba(76,168,255,.75);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(25,87,145,.7),
+      rgba(15,32,52,.95)
+    );
+
+  box-shadow:
+    0 0 30px rgba(76,168,255,.12);
+}
+
+.btn-primary:hover{
+
+  border-color:#8ed8ff;
+
+  box-shadow:
+    0 0 40px rgba(76,168,255,.35);
+}
+
+.btn-gold{
+
+  border-color:
+    rgba(213,180,106,.5);
+
+  color:var(--gold-light);
+}
+
+.btn-gold:hover{
+
+  border-color:var(--gold-light);
+
+  box-shadow:
+    0 0 35px rgba(213,180,106,.25);
+}
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.scroll-ind{
+
+  position:absolute;
+
+  bottom:28px;
+
+  z-index:3;
+
+  color:#63758b;
+
+  font-size:.65rem;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  animation:
+    scrollBob 2s infinite;
+}
+
+.scroll-ind::after{
+
+  content:"";
+
+  display:block;
+
+  width:1px;
+
+  height:45px;
+
+  margin:
+    10px auto 0;
+
+  background:
+    linear-gradient(
+      var(--blue),
+      transparent
+    );
+}
+
+@keyframes scrollBob{
+
+  0%,100%{
+    transform:translateY(0);
+    opacity:.5;
+  }
+
+  50%{
+    transform:translateY(8px);
+    opacity:1;
+  }
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+
+  position:relative;
+
+  padding:
+    110px 6vw;
+}
+
+section::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+
+  left:15%;
+
+  right:15%;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(90,140,200,.2),
+      transparent
+    );
+}
+
+.sec-title{
+
+  text-align:center;
+
+  font-size:
+    clamp(1.7rem,4vw,2.8rem);
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  color:#dce8f5;
+
+  margin-bottom:15px;
+
+  text-shadow:
+    0 5px 25px rgba(0,0,0,.8);
+}
+
+.sec-title .gold{
+
+  color:var(--gold-light);
+
+  text-shadow:
+    0 0 20px rgba(213,180,106,.2);
+}
+
+.sec-lead{
+
+  max-width:720px;
+
+  margin:
+    0 auto 55px;
+
+  text-align:center;
+
+  color:#7f8c9d;
+
+  font-size:1.05rem;
+
+  line-height:1.8;
+}
+
+.sec-lead b{
+  color:#bfcbd9;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards{
+
+  max-width:1200px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(260px,1fr)
+    );
+
+  gap:20px;
+}
+
+.card{
+
+  position:relative;
+
+  padding:
+    34px 28px;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(17,26,38,.92),
+      rgba(7,11,17,.96)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.14);
+
+  transition:.4s;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.25);
+}
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:2px;
+
+  height:0;
+
+  background:
+    linear-gradient(
+      var(--blue),
+      var(--purple)
+    );
+
+  transition:.4s;
+}
+
+.card::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:-100px;
+  right:-100px;
+
+  width:200px;
+  height:200px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(76,168,255,.1),
+      transparent 70%
+    );
+
+  transition:.4s;
+}
+
+.card:hover{
+
+  transform:
+    translateY(-7px);
+
+  border-color:
+    rgba(76,168,255,.35);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.55),
+    0 0 35px rgba(76,168,255,.08);
+}
+
+.card:hover::before{
+  height:100%;
+}
+
+.card:hover::after{
+  transform:scale(1.5);
+}
+
+.card .ic{
+
+  display:block;
+
+  font-size:2rem;
+
+  margin-bottom:18px;
+
+  filter:
+    grayscale(.15)
+    drop-shadow(
+      0 0 10px rgba(76,168,255,.3)
+    );
+}
+
+.card h3{
+
+  color:#dbe8f5;
+
+  font-size:1rem;
+
+  margin-bottom:12px;
+
+  text-transform:uppercase;
+}
+
+.card p{
+
+  color:#788596;
+
+  line-height:1.75;
+
+  font-size:.95rem;
+}
+
+/* =========================================================
+   PHILOSOPHY
+========================================================= */
+
+.philosophy{
+
+  max-width:1050px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.philosophy-card{
+
+  position:relative;
+
+  text-align:center;
+
+  padding:
+    42px 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17,25,37,.9),
+      rgba(7,11,17,.95)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.15);
+
+  transition:.35s;
+}
+
+.philosophy-card:hover{
+
+  transform:translateY(-6px);
+
+  border-color:
+    rgba(213,180,106,.4);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.5);
+}
+
+.philosophy-card .big{
+
+  font-size:2.3rem;
+
+  margin-bottom:18px;
+
+  filter:
+    grayscale(.25);
+}
+
+.philosophy-card h3{
+
+  color:var(--gold-light);
+
+  font-size:1rem;
+
+  margin-bottom:12px;
+}
+
+.philosophy-card p{
+
+  color:#788596;
+
+  line-height:1.7;
+}
+
+/* =========================================================
+   RATES
+========================================================= */
+
+.rates{
+
+  max-width:1000px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:15px;
+}
+
+.rate{
+
+  position:relative;
+
+  text-align:center;
+
+  padding:
+    30px 15px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(16,24,35,.9),
+      rgba(7,11,17,.95)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.15);
+
+  transition:.35s;
+}
+
+.rate:hover{
+
+  transform:
+    translateY(-5px);
+
+  border-color:
+    rgba(76,168,255,.4);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.5),
+    0 0 25px rgba(76,168,255,.08);
+}
+
+.rate .num{
+
+  font-family:'Cinzel',serif;
+
+  font-size:2.2rem;
+
+  font-weight:800;
+
+  color:#8fcfff;
+
+  text-shadow:
+    0 0 18px rgba(76,168,255,.3);
+}
+
+.rate .lbl{
+
+  margin-top:8px;
+
+  color:#687587;
+
+  font-size:.72rem;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   ECONOMY
+========================================================= */
+
+.economy-wrapper{
+
+  max-width:1150px;
+
+  margin:auto;
+}
+
+.economy-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(240px,1fr)
+    );
+
+  gap:20px;
+}
+
+.economy-card{
+
+  padding:28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16,24,35,.9),
+      rgba(7,11,17,.96)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.14);
+
+  transition:.35s;
+}
+
+.economy-card:hover{
+
+  border-color:
+    rgba(213,180,106,.35);
+
+  transform:translateY(-5px);
+}
+
+.economy-card .icon{
+
+  font-size:1.8rem;
+
+  margin-bottom:14px;
+}
+
+.economy-card h3{
+
+  color:#d9e5f1;
+
+  font-size:.95rem;
+
+  text-transform:uppercase;
+
+  margin-bottom:10px;
+}
+
+.economy-card p{
+
+  color:#748193;
+
+  line-height:1.7;
+}
+
+/* =========================================================
+   ECONOMIC INDEX
+========================================================= */
+
+.economy-index{
+
+  margin-top:25px;
+
+  display:grid;
+
+  grid-template-columns:
+    180px 1fr;
+
+  gap:30px;
+
+  align-items:center;
+
+  padding:30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20,31,42,.95),
+      rgba(7,11,17,.98)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.2);
+}
+
+.index-number{
+
+  font-family:'Cinzel',serif;
+
+  font-size:3.5rem;
+
+  font-weight:900;
+
+  color:var(--green);
+
+  text-align:center;
+
+  text-shadow:
+    0 0 20px rgba(99,211,154,.25);
+}
+
+.index-info h3{
+
+  color:var(--gold-light);
+
+  margin-bottom:8px;
+}
+
+.index-info p{
+
+  color:#788596;
+
+  line-height:1.6;
+}
+
+.status{
+
+  display:inline-block;
+
+  margin-top:12px;
+
+  padding:
+    5px 12px;
+
+  border:
+    1px solid rgba(99,211,154,.3);
+
+  color:var(--green);
+
+  font-size:.7rem;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   MARKET
+========================================================= */
+
+.market{
+
+  margin-top:25px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:15px;
+}
+
+.market-item{
+
+  padding:18px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  background:
+    rgba(255,255,255,.018);
+
+  border:
+    1px solid rgba(100,145,190,.1);
+}
+
+.market-item strong{
+
+  color:#bdc9d8;
+
+  font-size:.9rem;
+}
+
+.market-price{
+
+  color:var(--gold-light);
+
+  font-family:'Cinzel',serif;
+
+  font-size:.75rem;
+}
+
+.up{
+  color:var(--green);
+}
+
+.down{
+  color:var(--red);
+}
+
+/* =========================================================
+   FORGE / DOWNLOAD
+========================================================= */
+
+.fusion-box{
+
+  max-width:1050px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:70px;
+
+  align-items:center;
+}
+
+/* =========================================================
+   ARCANE SWORD
+========================================================= */
+
+.fusion-visual{
+
+  height:360px;
+
+  position:relative;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+}
+
+.fusion-visual::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  border:
+    1px solid rgba(76,168,255,.15);
+
+  border-radius:50%;
+
+  box-shadow:
+    0 0 80px rgba(76,168,255,.08);
+
+  animation:
+    rotateRune 20s linear infinite;
+}
+
+.sword-container{
+
+  position:relative;
+
+  z-index:3;
+
+  transform:
+    rotate(8deg);
+
+  filter:
+    drop-shadow(
+      0 0 20px rgba(76,168,255,.45)
+    );
+}
+
+.sword-blade{
+
+  width:18px;
+
+  height:235px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      #667789,
+      #f3f7fb 35%,
+      #a9bacb 65%,
+      #526375
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      75% 88%,
+      50% 100%,
+      25% 88%
+    );
+
+  box-shadow:
+    0 0 30px rgba(150,210,255,.5);
+
+  animation:
+    swordPulse 3s ease-in-out infinite;
+}
+
+@keyframes swordPulse{
+
+  0%,100%{
+    filter:brightness(1);
+  }
+
+  50%{
+    filter:brightness(1.4);
+  }
+}
+
+.sword-guard{
+
+  position:absolute;
+
+  width:125px;
+
+  height:10px;
+
+  left:50%;
+
+  bottom:96px;
+
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      #70592b,
+      #e6cb7d,
+      #70592b
+    );
+
+  border-radius:2px;
+
+  box-shadow:
+    0 0 18px rgba(213,180,106,.45);
+}
+
+.sword-pommel{
+
+  position:absolute;
+
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+
+  left:50%;
+
+  bottom:60px;
+
+  transform:translateX(-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      #f0d99a,
+      #8e7134
+    );
+
+  box-shadow:
+    0 0 20px rgba(213,180,106,.5);
+}
+
+/* =========================================================
+   RUNES
+========================================================= */
+
+.rune{
+
+  position:absolute;
+
+  width:40px;
+  height:40px;
+
+  border:
+    1px solid rgba(76,168,255,.35);
+
+  transform:
+    rotate(45deg);
+
+  box-shadow:
+    0 0 15px rgba(76,168,255,.12);
+
+  animation:
+    runeFloat 4s ease-in-out infinite;
+}
+
+.rune::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:8px;
+
+  border:
+    1px solid rgba(213,180,106,.25);
+}
+
+.rune.r1{
+  top:12%;
+  left:10%;
+}
+
+.rune.r2{
+  bottom:15%;
+  left:18%;
+  animation-delay:-1s;
+}
+
+.rune.r3{
+  top:20%;
+  right:10%;
+  animation-delay:-2s;
+}
+
+.rune.r4{
+  bottom:18%;
+  right:15%;
+  animation-delay:-3s;
+}
+
+@keyframes runeFloat{
+
+  0%,100%{
+    transform:
+      rotate(45deg)
+      translateY(0);
+
+    opacity:.35;
+  }
+
+  50%{
+    transform:
+      rotate(135deg)
+      translateY(-15px);
+
+    opacity:.8;
+  }
+}
+
+/* =========================================================
+   FUSION TEXT
+========================================================= */
+
+.fusion-text h2{
+
+  font-size:
+    clamp(2rem,4vw,3rem);
+
+  line-height:1.1;
+
+  color:#e1e9f3;
+
+  margin-bottom:20px;
+}
+
+.fusion-text h2 .gold{
+
+  color:var(--gold-light);
+
+  text-shadow:
+    0 0 20px rgba(213,180,106,.2);
+}
+
+.fusion-text p{
+
+  color:#7e8b9c;
+
+  font-size:1.03rem;
+
+  line-height:1.8;
+
+  margin-bottom:14px;
+}
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+.download-dropdown{
+
+  position:relative;
+
+  display:inline-block;
+
+  margin-top:20px;
+}
+
+.dropdown-content{
+
+  display:none;
+
+  position:absolute;
+
+  left:50%;
+
+  top:calc(100% + 12px);
+
+  transform:translateX(-50%);
+
+  width:330px;
+
+  padding:15px;
+
+  background:
+    linear-gradient(
+      150deg,
+      rgba(14,22,32,.99),
+      rgba(5,9,15,.99)
+    );
+
+  border:
+    1px solid rgba(76,168,255,.4);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.8),
+    0 0 30px rgba(76,168,255,.1);
+
+  z-index:200;
+}
+
+.dropdown-content.show{
+
+  display:flex;
+
+  flex-direction:column;
+
+  animation:
+    dropdownIn .25s ease;
+}
+
+@keyframes dropdownIn{
+
+  from{
+    opacity:0;
+    transform:
+      translate(-50%,-10px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translate(-50%,0);
+  }
+}
+
+.download-notice{
+
+  padding:12px;
+
+  margin-bottom:10px;
+
+  border:
+    1px solid rgba(213,180,106,.25);
+
+  background:
+    rgba(213,180,106,.05);
+
+  color:#9da9b9;
+
+  font-size:.78rem;
+
+  line-height:1.5;
+}
+
+.download-notice b{
+  color:var(--gold-light);
+}
+
+.dropdown-divider{
+
+  padding:
+    8px 2px;
+
+  color:#637286;
+
+  border-bottom:
+    1px solid rgba(100,145,190,.12);
+
+  font-size:.65rem;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.dropdown-content a{
+
+  padding:
+    12px;
+
+  margin-top:7px;
+
+  color:#cbd7e5;
+
+  text-decoration:none;
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid transparent;
+
+  transition:.25s;
+
+  font-size:.78rem;
+
+  font-weight:600;
+}
+
+.dropdown-content a:hover{
+
+  color:#fff;
+
+  border-color:
+    rgba(76,168,255,.3);
+
+  background:
+    rgba(76,168,255,.08);
+
+  padding-left:18px;
+}
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.cta-final{
+
+  position:relative;
+
+  max-width:850px;
+
+  margin:auto;
+
+  padding:
+    70px 40px;
+
+  text-align:center;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      rgba(45,85,135,.12),
+      transparent 65%
+    ),
+
+    linear-gradient(
+      150deg,
+      rgba(17,25,37,.95),
+      rgba(6,10,16,.98)
+    );
+
+  border:
+    1px solid rgba(100,145,190,.2);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.5);
+}
+
+.cta-final::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:15%;
+  right:15%;
+
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--blue),
+      var(--gold),
+      var(--blue),
+      transparent
+    );
+
+  box-shadow:
+    0 0 15px rgba(76,168,255,.4);
+}
+
+.cta-final h2{
+
+  font-size:
+    clamp(2rem,5vw,3.3rem);
+
+  line-height:1.1;
+
+  color:#e4ebf3;
+
+  margin-bottom:20px;
+}
+
+.cta-final h2 .gold{
+
+  display:block;
+
+  color:var(--gold-light);
+
+  margin-top:8px;
+}
+
+.cta-final p{
+
+  max-width:650px;
+
+  margin:
+    0 auto 35px;
+
+  color:#7d8a9b;
+
+  font-size:1.08rem;
+
+  line-height:1.8;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+  position:relative;
+
+  padding:
+    55px 6vw 35px;
+
+  text-align:center;
+
+  background:
+    #04070b;
+
+  border-top:
+    1px solid rgba(100,145,190,.15);
+
+  color:#596778;
+}
+
+footer .logo{
+
+  margin-bottom:15px;
+}
+
+.socials{
+
+  display:flex;
+
+  justify-content:center;
+
+  flex-wrap:wrap;
+
+  gap:25px;
+
+  margin:22px 0;
+}
+
+.socials a{
+
+  color:#788697;
+
+  text-decoration:none;
+
+  text-transform:uppercase;
+
+  font-size:.72rem;
+
+  letter-spacing:1.5px;
+
+  transition:.3s;
+}
+
+.socials a:hover{
+
+  color:#bcdfff;
+
+  text-shadow:
+    0 0 12px rgba(76,168,255,.5);
+}
+
+footer p{
+
+  color:#4f5d6e;
+}
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+
+  opacity:0;
+
+  transform:
+    translateY(35px);
+
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.show{
+
+  opacity:1;
+
+  transform:none;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:820px){
+
+  nav{
+    height:68px;
+  }
+
+  .navlinks{
+
+    position:fixed;
+
+    top:68px;
+
+    right:0;
+
+    width:280px;
+
+    height:
+      calc(100vh - 68px);
+
+    padding:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:25px;
+
+    background:
+      rgba(4,7,12,.98);
+
+    border-left:
+      1px solid rgba(76,168,255,.2);
+
+    transform:
+      translateX(110%);
+
+    transition:.4s;
+
+    box-shadow:
+      -20px 0 50px rgba(0,0,0,.6);
+  }
+
+  .navlinks.open{
+
+    transform:
+      translateX(0);
+  }
+
+  .burger{
+    display:flex;
+  }
+
+  .hero-title{
+    font-size:
+      clamp(2.6rem,14vw,5rem);
+  }
+
+  .hero-title .boost{
+    letter-spacing:5px;
+  }
+
+  .hero-cta{
+
+    flex-direction:column;
+
+    width:100%;
+
+    max-width:330px;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .philosophy{
+
+    grid-template-columns:1fr;
+  }
+
+  .rates{
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .economy-index{
+
+    grid-template-columns:1fr;
+
+    text-align:center;
+  }
+
+  .market{
+
+    grid-template-columns:1fr;
+  }
+
+  .fusion-box{
+
+    grid-template-columns:1fr;
+
+    gap:35px;
+  }
+
+  .fusion-visual{
+
+    height:300px;
+  }
+
+  .dropdown-content{
+
+    width:
+      min(320px,90vw);
+  }
+
+  section{
+
+    padding:
+      80px 5vw;
+  }
+}
+
+@media(max-width:480px){
+
+  .logo{
+    font-size:1rem;
+  }
+
+  .rates{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .rate .num{
+    font-size:1.8rem;
+  }
+
+  .cta-final{
+    padding:
+      55px 22px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+
+    animation-duration:.01ms !important;
+
+    animation-iteration-count:1 !important;
+
+    scroll-behavior:auto !important;
+
+    transition-duration:.01ms !important;
+  }
+}
+
+.server-logo {
+    width: 200%;
+    max-width: 280px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 100px rgba(0, 234, 255, 0.45))
+        drop-shadow(0 0 205px rgba(0, 0, 0, 0.9));
+
+    transition: all 0.3s ease;
+}
+
+.server-logo:hover {
+    transform: scale(3.04);
+
+    filter:
+        drop-shadow(0 0 150px rgba(212, 175, 55, 0.7))
+        drop-shadow(0 0 300px rgba(0, 0, 0, 1));
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="bg-fx"></div>
+
+<div class="grid-fx"></div>
+
+<div class="magic-particles" id="magicParticles"></div>
+
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
+<nav>
+
+  <div
+    class="logo"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+    L2 <span>VIRTUAL</span> BOOST
+
+  </div>
+
+
+  <div
+    class="navlinks"
+    id="navlinks">
+
+    <a
+      href="site/login.php"
+      onclick="closeMenu()">
+
+      Login
+
+    </a>
+
+    <a
+      href="#server"
+      onclick="closeMenu()">
+
+      Servidor
+
+    </a>
+
+    <a
+      href="#rates"
+      onclick="closeMenu()">
+
+      Rates
+
+    </a>
+
+    <a
+      href="#economy"
+      onclick="closeMenu()">
+
+      Economia
+
+    </a>
+
+    <a
+      href="#download"
+      onclick="closeMenu()">
+
+      Download
+
+    </a>
+
+    <a
+      href="/suporte.html"
+      onclick="closeMenu()">
+
+      Suporte
+
+    </a>
+
+    <a
+      href="#join"
+      onclick="closeMenu()">
+
+      Discord
+
+    </a>
+
+  </div>
+
+
+  <div
+    class="burger"
+    onclick="toggleMenu()">
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<header>
+
+  <div class="badge reveal">
+
+    LINEAGE II · CHRONICLE HIGH FIVE · LOW RATE
+
+  </div>
+
+	<div class="server-logo">
+		<img src="logo.png" alt="Virtual Boost" class="server-logo">
+	</div>
+  <!-- <h1 class="hero-title reveal"> -->
+
+    <!-- <span class="l2"> -->
+      <!-- LINEAGE II -->
+    <!-- </span> -->
+
+    <!-- <span class="virtual"> -->
+      <!-- VIRTUAL -->
+    <!-- </span> -->
+
+    <!-- <span class="boost"> -->
+      <!-- B O O S T -->
+    <!-- </span> -->
+
+  <!-- </h1> -->
+
+
+  <p class="hero-sub reveal">
+
+    <b>Um mundo onde cada conquista possui um preço.</b>
+
+    <br><br>
+
+    Progressão lenta, economia viva, guerras entre clãs
+    e um High Five construído para quem acredita que
+    grandes personagens precisam de grandes histórias.
+
+  </p>
+
+
+  <div class="hero-cta reveal">
+
+    <a
+      href="site/login.php"
+      class="btn btn-primary">
+
+      ⚔ ACESSAR / CRIAR CONTA
+
+    </a>
+
+
+    <a
+      href="#server"
+      class="btn btn-gold">
+
+      CONHECER O REINO
+
+    </a>
+
+  </div>
+
+
+  <div class="scroll-ind">
+
+    DESCUBRA O REINO
+
+  </div>
+
+</header>
+
+
+<!-- =====================================================
+     SERVER
+===================================================== -->
+
+<section id="server">
+
+  <h2 class="sec-title reveal">
+
+    <span class="gold">
+      O REINO
+    </span>
+
+    DOS QUE NÃO TEM PRESSA
+
+  </h2>
+
+
+  <p class="sec-lead reveal">
+
+    Um servidor baseado na essência clássica do
+    <b>Lineage II High Five</b>, preservando a sensação
+    de evolução, perigo e conquista.
+
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card reveal">
+
+      <span class="ic">⚔️</span>
+
+      <h3>
+        Progressão Duradoura
+      </h3>
+
+      <p>
+        Seu personagem não nasce pronto. Cada nível,
+        habilidade e equipamento representa uma etapa
+        verdadeira da sua jornada.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">💰</span>
+
+      <h3>
+        Economia Viva
+      </h3>
+
+      <p>
+        Adena, materiais, crafting e itens raros
+        possuem importância real dentro do reino.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">🏰</span>
+
+      <h3>
+        Clãs & Conquistas
+      </h3>
+
+      <p>
+        Siege, territórios, alianças e guerras entre
+        clãs fazem parte da verdadeira disputa pelo poder.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">🛡️</span>
+
+      <h3>
+        Proteção Ativa
+      </h3>
+
+      <p>
+        Ambiente competitivo com atenção constante
+        contra bots, exploits e comportamentos abusivos.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">⚒️</span>
+
+      <h3>
+        Crafting Relevante
+      </h3>
+
+      <p>
+        Produzir, coletar e negociar são partes
+        importantes da economia do servidor.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">👑</span>
+
+      <h3>
+        Endgame com Propósito
+      </h3>
+
+      <p>
+        O endgame não representa o fim.
+        Ele abre espaço para guerras, território,
+        comércio e reconhecimento.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">🤝</span>
+
+      <h3>
+        Política & Alianças
+      </h3>
+
+      <p>
+        Sozinho você conquista território.
+        Com aliados você pode construir um império.
+      </p>
+
+    </div>
+
+
+    <div class="card reveal">
+
+      <span class="ic">✦</span>
+
+      <h3>
+        Desafios Dinâmicos
+      </h3>
+
+      <p>
+        Eventos de mundo e desafios especiais mantêm
+        a comunidade em constante movimento.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PHILOSOPHY
+===================================================== -->
+
+<section id="philosophy">
+
+  <h2 class="sec-title reveal">
+
+    <span class="gold">
+      A FILOSOFIA
+    </span>
+
+    DO VIRTUAL BOOST
+
+  </h2>
+
+
+  <p class="sec-lead reveal">
+
+    Não queremos tornar Lineage II fácil.
+    <b>Queremos tornar cada conquista memorável.</b>
+
+  </p>
+
+
+  <div class="philosophy">
+
+
+    <div class="philosophy-card reveal">
+
+      <div class="big">
+        ◈
+      </div>
+
+      <h3>
+        SEM PRESSA
+      </h3>
+
+      <p>
+        A jornada importa tanto quanto o destino.
+        Evolua, explore e construa sua própria história.
+      </p>
+
+    </div>
+
+
+    <div class="philosophy-card reveal">
+
+      <div class="big">
+        ⚔
+      </div>
+
+      <h3>
+        DIFÍCIL DE DOMINAR
+      </h3>
+
+      <p>
+        Estratégia, conhecimento, comércio e trabalho
+        em equipe serão tão importantes quanto equipamento.
+      </p>
+
+    </div>
+
+
+    <div class="philosophy-card reveal">
+
+      <div class="big">
+        ♛
+      </div>
+
+      <h3>
+        CONQUISTE
+      </h3>
+
+      <p>
+        Grandes itens e títulos devem carregar uma história.
+        O poder precisa ser conquistado.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     RATES
+===================================================== -->
+
+<section id="rates">
+
+  <h2 class="sec-title reveal">
+
+    <span class="gold">
+      TAXAS
+    </span>
+
+    DO REINO
+
+  </h2>
+
+
+  <p class="sec-lead reveal">
+
+    Rates controladas para manter a progressão longa
+    e preservar o valor de cada recurso conquistado.
+
+  </p>
+
+
+  <div class="rates">
+
+
+    <div class="rate reveal">
+
+      <div
+        class="num"
+        data-target="1">
+
+        0
+
+      </div>
+
+      <div class="lbl">
+        XP Rate
+      </div>
+
+    </div>
+
+
+    <div class="rate reveal">
+
+      <div
+        class="num"
+        data-target="2">
+
+        0
+
+      </div>
+
+      <div class="lbl">
+        SP Rate
+      </div>
+
+    </div>
+
+
+    <div class="rate reveal">
+
+      <div
+        class="num"
+        data-target="2">
+
+        0
+
+      </div>
+
+      <div class="lbl">
+        Adena
+      </div>
+
+    </div>
+
+
+    <div class="rate reveal">
+
+      <div
+        class="num"
+        data-target="2">
+
+        0
+
+      </div>
+
+      <div class="lbl">
+        Drop
+      </div>
+
+    </div>
+
+
+    <div class="rate reveal">
+
+      <div
+        class="num"
+        data-target="2">
+
+        0
+
+      </div>
+
+      <div class="lbl">
+        Spoil
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ECONOMY
+===================================================== -->
+
+<section id="economy">
+
+  <h2 class="sec-title reveal">
+
+    <span class="gold">
+      ECONOMIA
+    </span>
+
+    DO REINO
+
+  </h2>
+
+
+  <p class="sec-lead reveal">
+
+    Em Virtual Boost, nada deveria ser descartável.
+    A economia existe para valorizar o esforço dos jogadores.
+
+  </p>
+
+
+  <div class="economy-wrapper">
+
+
+    <div class="economy-grid">
+
+
+      <div class="economy-card reveal">
+
+        <div class="icon">
+          ◈
+        </div>
+
+        <h3>
+          Adena com Valor
+        </h3>
+
+        <p>
+          Rates controladas ajudam a preservar o valor
+          da moeda durante a evolução do servidor.
+        </p>
+
+      </div>
+
+
+      <div class="economy-card reveal">
+
+        <div class="icon">
+          ⚒
+        </div>
+
+        <h3>
+          Crafting Importante
+        </h3>
+
+        <p>
+          Materiais e recipes permanecem relevantes
+          durante diferentes fases da progressão.
+        </p>
+
+      </div>
+
+
+      <div class="economy-card reveal">
+
+        <div class="icon">
+          ◇
+        </div>
+
+        <h3>
+          Mercado dos Jogadores
+        </h3>
+
+        <p>
+          O comércio entre jogadores permite diferentes
+          caminhos para construir riqueza.
+        </p>
+
+      </div>
+
+
+      <div class="economy-card reveal">
+
+        <div class="icon">
+          ✦
+        </div>
+
+        <h3>
+          Escassez
+        </h3>
+
+        <p>
+          Quanto mais raro um item, maior sua importância
+          dentro do mundo.
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="economy-index reveal">
+
+      <div class="index-number">
+        78
+      </div>
+
+
+      <div class="index-info">
+
+        <h3>
+          ÍNDICE ECONÔMICO
+        </h3>
+
+        <p>
+          Indicador interno destinado a acompanhar
+          a saúde econômica do servidor.
+        </p>
+
+        <span class="status">
+          ● ECONOMIA SAUDÁVEL
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="market">
+
+
+      <div class="market-item reveal">
+
+        <strong>
+          Soul Ore
+        </strong>
+
+        <span class="market-price">
+
+          42.000
+
+          <span class="up">
+            ▲
+          </span>
+
+        </span>
+
+      </div>
+
+
+      <div class="market-item reveal">
+
+        <strong>
+          Crystal S
+        </strong>
+
+        <span class="market-price">
+
+          18.000
+
+          <span class="up">
+            ▲
+          </span>
+
+        </span>
+
+      </div>
+
+
+      <div class="market-item reveal">
+
+        <strong>
+          EWC
+        </strong>
+
+        <span class="market-price">
+
+          7.2kk
+
+          <span class="up">
+            ▲
+          </span>
+
+        </span>
+
+      </div>
+
+
+      <div class="market-item reveal">
+
+        <strong>
+          Blessed Scroll
+        </strong>
+
+        <span class="market-price">
+
+          1.8kk
+
+          <span class="down">
+            ▼
+          </span>
+
+        </span>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DOWNLOAD / FORGE
+===================================================== -->
+
+<section id="download">
+
+  <div class="fusion-box">
+
+
+    <div class="fusion-visual reveal">
+
+      <div class="rune r1"></div>
+      <div class="rune r2"></div>
+      <div class="rune r3"></div>
+      <div class="rune r4"></div>
+
+
+      <div class="sword-container">
+
+        <div class="sword-blade"></div>
+
+        <div class="sword-guard"></div>
+
+        <div class="sword-pommel"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="fusion-text reveal">
+
+      <h2>
+
+        FORJE SUA
+
+        <br>
+
+        <span class="gold">
+          LENDA
+        </span>
+
+      </h2>
+
+
+      <p>
+
+        Aqui, uma arma rara não é apenas um item
+        no inventário.
+
+      </p>
+
+
+      <p>
+
+        Ela representa horas de dedicação,
+        um raid inesquecível, uma guerra vencida
+        ou uma negociação histórica.
+
+      </p>
+
+
+      <p>
+
+        Entre no reino e descubra até onde
+        sua própria história pode chegar.
+
+      </p>
+
+
+      <div class="download-dropdown">
+
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="toggleDownloadMenu(event)">
+
+          ⚔ DOWNLOAD
+
+        </button>
+
+
+        <div
+          class="dropdown-content"
+          id="downloadMenu">
+
+
+          <div class="download-notice">
+
+            ⚠ <b>ATENÇÃO</b><br>
+
+            Após baixar o client, delete a
+            <b>system</b> e execute o
+            <b>Launcher</b> para manter
+            os arquivos atualizados.
+
+          </div>
+
+
+          <div class="dropdown-divider">
+
+            OPÇÕES DE DOWNLOAD
+
+          </div>
+
+
+          <a
+            href=""
+            target="_blank">
+
+            ◈ Launcher Oficial · Em breve.
+
+          </a>
+
+
+          <a
+            href="https://virtualboost.online/download/L2H5(Client).torrent"
+            target="_blank">
+
+            ◈ Cliente High Five · .TORRENT
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     JOIN
+===================================================== -->
+
+<section id="join">
+
+  <div class="cta-final reveal">
+
+
+    <h2>
+
+      SUA LENDA
+
+      <span class="gold">
+        COMEÇA AQUI
+      </span>
+
+    </h2>
+
+
+    <p>
+
+      Um novo capítulo em Virtual Boost está prestes
+      a começar.
+
+      Prepare seu personagem, reúna seus aliados
+      e esteja pronto para uma jornada onde
+      cada conquista terá seu preço.
+
+    </p>
+
+
+    <a
+      href="#SEU-DISCORD-AQUI"
+      class="btn btn-primary">
+
+      ⚔ EM DESENVOLVIMENTO
+
+    </a>
+
+
+    <p
+      style="
+        margin-top:22px;
+        margin-bottom:0;
+        font-size:.72rem;
+        letter-spacing:2px;
+      ">
+
+      COMUNIDADE OFICIAL
+
+    </p>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+  <div class="logo">
+
+    L2 <span>VIRTUAL</span> BOOST
+
+  </div>
+
+
+  <div class="socials">
+
+
+    <a href="#SEU-DISCORD-AQUI">
+      ⚔ Discord
+    </a>
+
+
+    <a href="#download">
+      ◈ Download
+    </a>
+
+
+    <a href="#economy">
+      ◇ Economia
+    </a>
+
+
+    <a href="#server">
+      ♛ Servidor
+    </a>
+
+
+  </div>
+
+
+  <p style="font-size:.75rem">
+
+    © 2026 L2 Virtual Boost —
+    Chronicle High Five.
+
+    Não afiliado à NCSoft.
+
+    Projeto não-oficial de fãs.
+
+  </p>
+
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMenu(){
+
+  document
+    .getElementById('navlinks')
+    .classList
+    .toggle('open');
+
+}
+
+
+function closeMenu(){
+
+  document
+    .getElementById('navlinks')
+    .classList
+    .remove('open');
+
+}
+
+
+/* =========================================================
+   DOWNLOAD MENU
+========================================================= */
+
+function toggleDownloadMenu(event){
+
+  event.stopPropagation();
+
+  const menu =
+    document.getElementById('downloadMenu');
+
+  menu.classList.toggle('show');
+
+}
+
+
+window.addEventListener(
+  'click',
+  function(){
+
+    const menu =
+      document.getElementById('downloadMenu');
+
+    if(
+      menu &&
+      menu.classList.contains('show')
+    ){
+
+      menu.classList.remove('show');
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   MAGIC PARTICLES
+========================================================= */
+
+const particleContainer =
+  document.getElementById(
+    'magicParticles'
+  );
+
+
+for(
+  let i = 0;
+  i < 65;
+  i++
+){
+
+  const particle =
+    document.createElement('div');
+
+  particle.className =
+    'particle';
+
+  particle.style.left =
+    Math.random() * 100 + '%';
+
+  particle.style.animationDuration =
+    (Math.random() * 5 + 4) + 's';
+
+  particle.style.animationDelay =
+    (Math.random() * 6) + 's';
+
+  particle.style.width =
+    (Math.random() * 3 + 1) + 'px';
+
+  particle.style.height =
+    particle.style.width;
+
+  particleContainer.appendChild(
+    particle
+  );
+
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const observer =
+  new IntersectionObserver(
+
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if(
+            entry.isIntersecting
+          ){
+
+            entry.target
+              .classList
+              .add('show');
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:.12
+    }
+
+  );
+
+
+document
+  .querySelectorAll('.reveal')
+  .forEach(
+    element =>
+      observer.observe(element)
+  );
+
+
+/* =========================================================
+   RATE COUNTER
+========================================================= */
+
+const rateObserver =
+  new IntersectionObserver(
+
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if(
+            entry.isIntersecting
+          ){
+
+            const element =
+              entry.target;
+
+            const target =
+              Number(
+                element.dataset.target
+              );
+
+            let current = 0;
+
+            const animate = () => {
+
+              current +=
+                Math.max(
+                  1,
+                  Math.ceil(
+                    target / 15
+                  )
+                );
+
+              if(
+                current >= target
+              ){
+
+                element.textContent =
+                  'x' + target;
+
+                rateObserver.unobserve(
+                  element
+                );
+
+                return;
+
+              }
+
+              element.textContent =
+                'x' + current;
+
+              requestAnimationFrame(
+                animate
+              );
+
+            };
+
+            animate();
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:.6
+    }
+
+  );
+
+
+document
+  .querySelectorAll('.num')
+  .forEach(
+    element =>
+      rateObserver.observe(element)
+  );
+
+</script>
+
+</body>
+</html>
