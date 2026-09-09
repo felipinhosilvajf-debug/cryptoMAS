@@ -101,7 +101,38 @@ function buildPageUrl(int $page): string
 */
 
 $totalAdena = 0;
+$totalAdenaSemStaff = 0;
 $totalPlayersWithAdena = 0;
+
+try {
+    $stmt = $pdo->query("
+        SELECT
+            COALESCE(SUM(i.count), 0) AS total_adena,
+            COALESCE(SUM(
+                CASE
+                    WHEN c.accesslevel <> 100
+                    THEN i.count
+                    ELSE 0
+                END
+            ), 0) AS total_adena_sem_staff,
+            COUNT(DISTINCT i.owner_id) AS total_players
+        FROM items i
+        INNER JOIN characters c
+            ON c.obj_Id = i.owner_id
+        WHERE i.item_id = 57
+          AND i.owner_id > 0
+          AND i.count > 0
+    ");
+
+    $row = $stmt->fetch();
+
+    if ($row) {
+        $totalAdena = (int) $row['total_adena'];
+        $totalAdenaSemStaff = (int) $row['total_adena_sem_staff'];
+        $totalPlayersWithAdena = (int) $row['total_players'];
+    }
+} catch (Throwable $e) {
+}
 
 try {
     $stmt = $pdo->query("
@@ -243,11 +274,10 @@ try {
 $activity5m = [];
 
 try {
-    $stmt = $pdo->query("
+    $stmt = $pdo->prepare("
         SELECT
             character_name,
             account_name,
-
             COUNT(*) AS transactions,
 
             COALESCE(
@@ -276,7 +306,7 @@ try {
 
         FROM adena_transactions
 
-        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)
+        WHERE created_at >= (NOW() - INTERVAL 5 MINUTE)
 
         GROUP BY character_name, account_name
 
@@ -286,7 +316,9 @@ try {
         LIMIT 20
     ");
 
+    $stmt->execute();
     $activity5m = $stmt->fetchAll();
+
 } catch (Throwable $e) {
 }
 
@@ -300,11 +332,10 @@ try {
 $activity24h = [];
 
 try {
-    $stmt = $pdo->query("
+    $stmt = $pdo->prepare("
         SELECT
             character_name,
             account_name,
-
             COUNT(*) AS transactions,
 
             COALESCE(
@@ -333,7 +364,7 @@ try {
 
         FROM adena_transactions
 
-        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+        WHERE created_at >= (NOW() - INTERVAL 24 HOUR)
 
         GROUP BY character_name, account_name
 
@@ -343,7 +374,9 @@ try {
         LIMIT 20
     ");
 
+    $stmt->execute();
     $activity24h = $stmt->fetchAll();
+
 } catch (Throwable $e) {
 }
 
@@ -718,7 +751,7 @@ a {
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     margin-bottom: 18px;
 }
@@ -1254,20 +1287,28 @@ tr:hover td {
 <section class="cards">
 
 <div class="card">
-
     <div class="card-label">
-        Adena em circulação
+        Adena em circulação — Sem Staff
+    </div>
+
+    <div class="card-value gold">
+        <?= formatAdena($totalAdenaSemStaff) ?>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-label">
+        Adena em circulação — Com Staff
     </div>
 
     <div class="card-value gold">
         <?= formatAdena($totalAdena) ?>
     </div>
-
 </div>
 
 
 <div class="card">
-
     <div class="card-label">
         Jogadores com Adena
     </div>
@@ -1275,12 +1316,10 @@ tr:hover td {
     <div class="card-value cyan">
         <?= formatAdena($totalPlayersWithAdena) ?>
     </div>
-
 </div>
 
 
 <div class="card">
-
     <div class="card-label">
         Movimentações registradas
     </div>
@@ -1288,12 +1327,10 @@ tr:hover td {
     <div class="card-value">
         <?= formatAdena($totalTransactions) ?>
     </div>
-
 </div>
 
 
 <div class="card">
-
     <div class="card-label">
         Alto risco registrado
     </div>
@@ -1301,7 +1338,6 @@ tr:hover td {
     <div class="card-value red">
         <?= formatAdena($totalHighCritical) ?>
     </div>
-
 </div>
 
 </section>
