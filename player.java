@@ -44,6 +44,7 @@ import l2f.commons.lang.reference.HardReferences;
 import l2f.commons.threading.RunnableImpl;
 import l2f.commons.util.Rnd;
 import l2f.gameserver.Announcements;
+import l2f.gameserver.anticheat.AntiCheatManager;
 import l2f.gameserver.autofarm.AutoFarmTask;
 import l2f.gameserver.Config;
 import l2f.gameserver.GameTimeController;
@@ -926,7 +927,16 @@ private Player(final int objectId, final PlayerTemplate template)
 		return (PlayerAI) _ai;
 	}
 
-	@Override
+		/*
+	 * Anti-Cheat:
+	 * somente coleta dados para análise.
+	 *PARTE DAS SKILLS ABAIXO
+	 * Não bloqueia o ataque.
+	 * Não kicka.
+	 * Não bane.
+	 * Não envia mensagem ao jogador.
+	 * Não escreve no console.
+	 */
 	public void doCast(final Skill skill, final Creature target, boolean forceUse)
 	{
 		if (skill == null)
@@ -940,22 +950,36 @@ private Player(final int objectId, final PlayerTemplate template)
 			return;
 		}
 
-		super.doCast(skill, target, forceUse);
+		AntiCheatManager.getInstance().onSkillUse(this, skill);
 
-		// if (getUseSeed() != 0 && skill.getSkillType() == SkillType.SOWING)
-		// sendPacket(new ExUseSharedGroupItem(getUseSeed(), getUseSeed(), 5000, 5000));
+		super.doCast(skill, target, forceUse);
 	}
 
 	@Override
 	public void doAttack(Creature target)
 	{
-		if ((_event != null) && !_event.canAttack(this, target))
-		{
-			sendActionFailed();
-			return;
-		}
-		super.doAttack(target);
+	if ((_event != null) && !_event.canAttack(this, target))
+	{
+	sendActionFailed();
+	return;
 	}
+
+	/*
+	 * Anti-Cheat:
+	 * somente coleta dados para análise.
+	 *
+	 * Não bloqueia o ataque.
+	 * Não kicka.
+	 * Não bane.
+	 * Não envia mensagem ao jogador.
+	 * Não escreve no console.
+	 */
+	AntiCheatManager.getInstance().onAttack(this);
+
+	super.doAttack(target);
+
+}
+
 
 	@Override
 	public void sendReuseMessage(Skill skill)
